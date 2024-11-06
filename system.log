@@ -43,3 +43,24 @@
 [2024-11-06 16:07:53] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
 [2024-11-06 16:08:09] MESSAGE: Mensagem de operador1@protecao.gov.pt para operador1@protecao.gov.pt: coord_regional@protecao.gov.pt: Boa Tarde Operador1, como se encontra?
 [2024-11-06 16:08:19] MESSAGE: Mensagem de coord_regional@protecao.gov.pt para coord_regional@protecao.gov.pt: operador1@protecao.gov.pt: Boa Tarde Coordenador Regional, encontro-me bem e o Senhor?
+[2024-11-06 16:18:38] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-06 16:18:52] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
+[2024-11-06 16:19:04] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
+[2024-11-06 16:19:11] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
+[2024-11-06 16:24:19] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-06 16:24:56] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
+[2024-11-06 16:28:38] AUTHENTICATION: Tentativa de login falhou para o email: coord_regional@protecao.gov.pt
+[2024-11-06 16:28:47] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-06 16:29:01] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
+[2024-11-06 16:29:23] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
+[2024-11-06 16:29:32] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
+[2024-11-06 16:37:00] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-06 16:37:09] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
+[2024-11-06 16:37:17] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
+[2024-11-06 16:37:27] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
+[2024-11-06 16:42:19] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-06 16:42:26] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
+[2024-11-06 16:42:33] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
+[2024-11-06 16:42:42] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
+[2024-11-06 16:48:47] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-06 16:48:58] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt

@@ -117,25 +117,13 @@ public class ClientHandler extends Thread {
                 }
                 break;
             case "EVACUATE":
-                if (userRole == Role.HIGH) {
-                    groupService.requestApproval("EVACUATE", this, "Grupo-HIGH");
-                } else {
-                    sendMessage("Permissão insuficiente para iniciar EVACUATE.");
-                }
+                groupService.requestApproval("EVACUATE", this, "Grupo-HIGH");
                 break;
             case "ACTIVATE":
-                if (userRole.ordinal() <= Role.MEDIUM.ordinal()) {
-                    groupService.requestApproval("ACTIVATE", this, "Grupo-MEDIUM");
-                } else {
-                    sendMessage("Permissão insuficiente para iniciar ACTIVATE.");
-                }
+                groupService.requestApproval("ACTIVATE", this, "Grupo-MEDIUM");
                 break;
             case "DISTRIBUTE":
-                if (userRole.ordinal() <= Role.LOW.ordinal()) {
-                    groupService.requestApproval("DISTRIBUTE", this, "Grupo-LOW");
-                } else {
-                    sendMessage("Permissão insuficiente para iniciar DISTRIBUTE.");
-                }
+                groupService.requestApproval("DISTRIBUTE", this, "Grupo-LOW");
                 break;
 
             case "APPROVE":

@@ -75,7 +75,7 @@ public class GroupService {
                 if(client.getEmail() == sender.getEmail()) //se fui eu que enviei
                 {
                     // Adiciona o email do destinatário na mensagem enviada
-                    String messageWithRecipient = String.format("%s", message);
+                    String messageWithRecipient = String.format("(%s): %s", groupName, message);
                     client.sendMessage(messageWithRecipient);
                 }
                 else
@@ -113,8 +113,16 @@ public class GroupService {
         ApprovalRequest request = new ApprovalRequest(action, requester, requiredRole);
         pendingApprovals.add(request);
 
-        // Notifica o grupo correto para aprovação, sem enviar como mensagem comum
-        sendMessageToGroup(requiredGroup, "Aprovação necessária para " + action + " iniciada por " + requester.getEmail(), requester);
+        // Notifica o grupo apropriado para aprovação, excluindo o próprio solicitante
+        List<ClientHandler> members = groups.get(requiredGroup);
+        if (members != null) {
+            for (ClientHandler client : members) {
+                if (!client.equals(requester)) {
+                    client.sendMessage("Aprovação necessária para " + action + " iniciada por " + requester.getEmail());
+                }
+            }
+        }
+        requester.sendMessage("Solicitação de " + action + " enviada para aprovação.");
     }
 
     public ApprovalRequest getPendingApproval(String action) {
@@ -123,15 +131,16 @@ public class GroupService {
                 return request;
             }
         }
-        return null;  // Retorna null se não houver pedido pendente para a ação
+        return null;
     }
 
     public void approveAction(ClientHandler approver, ApprovalRequest request) {
         if (!request.getRequester().equals(approver) && approver.getRole().ordinal() <= request.getRequiredRole().ordinal()) {
+            // Aprovação válida, envia confirmação para o grupo "geral"
             sendMessageToGroup("Grupo-geral", "Ação aprovada: " + request.getAction() + " por " + approver.getEmail(), approver);
             pendingApprovals.remove(request);
         } else {
-            approver.sendMessage("Você não tem permissão para aprovar ou é o próprio requisitante.");
+            approver.sendMessage("Você não tem permissão para aprovar esta ação ou é o próprio requisitante.");
         }
     }
 }

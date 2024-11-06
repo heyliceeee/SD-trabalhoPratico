@@ -49,8 +49,8 @@ public class UserManager {
 
     // Método que retorna o email associado a um `ClientHandler`
     public String getUserEmail(ClientHandler clientHandler) {
-        // Considera que o username do cliente é usado como chave no mapa
-        return clientHandler.getUsername();
+        // Considera que o email do cliente é usado como chave no mapa
+        return clientHandler.getEmail();
     }
 
     // Carrega utilizadores a partir do ficheiro para o mapa

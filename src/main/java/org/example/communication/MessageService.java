@@ -52,12 +52,12 @@ public class MessageService {
         }
     }
 
-    public void registerOnlineClient(String username, ClientHandler client) {
-        onlineClients.put(username, client);
+    public void registerOnlineClient(String email, ClientHandler client) {
+        onlineClients.put(email, client);
     }
 
-    public void unregisterOnlineClient(String username) {
-        onlineClients.remove(username);
+    public void unregisterOnlineClient(String email) {
+        onlineClients.remove(email);
     }
 
     public Map<String, ClientHandler> getOnlineClients() {

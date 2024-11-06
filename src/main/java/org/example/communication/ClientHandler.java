@@ -32,7 +32,6 @@ public class ClientHandler extends Thread {
     private BufferedReader in;
     private String email;
     private Role userRole;
-    private String username;
 
 
     public ClientHandler(Socket socket, UserManager userManager, MessageService messageService, GroupService groupService) {
@@ -81,9 +80,14 @@ public class ClientHandler extends Thread {
         if (success) {
             userRole = Role.valueOf(userManager.getUserRole(email).toUpperCase());
             messageService.registerOnlineClient(email, this);
-            out.println("Autenticação bem-sucedida. Bem-vindo(a), " + email + "!");
+
+            // Adiciona o utilizador aos grupos padrão com base no seu role
+            groupService.addUserToDefaultGroups(this, userRole);
+
+            out.println("Autenticação bem-sucedida. Pertence aos grupos: geral, " + userRole + " e roles inferiores.");
+            return true;
         }
-        return success;
+        return false;
     }
 
     // Processa os comandos enviados pelo cliente
@@ -102,19 +106,53 @@ public class ClientHandler extends Thread {
                 leaveGroup(parts[1]);
                 break;
             case "GROUPMSG":
-                sendMessageToGroup(parts[1], parts[2]);
+                if (parts.length < 3) {
+                    sendMessage("Uso: GROUPMSG [nome do grupo] [mensagem]");
+                } else {
+                    String groupName = parts[1];
+                    String message = parts[2];
+
+                    // Envia a mensagem para o grupo apenas se o utilizador for membro do grupo
+                    groupService.sendMessageToGroup(groupName, message, this);
+                }
                 break;
             case "EVACUATE":
-                executeAction("evacuateMass");
+                if (userRole == Role.HIGH) {
+                    groupService.requestApproval("EVACUATE", this, "Grupo-HIGH");
+                } else {
+                    sendMessage("Permissão insuficiente para iniciar EVACUATE.");
+                }
                 break;
             case "ACTIVATE":
-                executeAction("activateEmergency");
+                if (userRole.ordinal() <= Role.MEDIUM.ordinal()) {
+                    groupService.requestApproval("ACTIVATE", this, "Grupo-MEDIUM");
+                } else {
+                    sendMessage("Permissão insuficiente para iniciar ACTIVATE.");
+                }
                 break;
             case "DISTRIBUTE":
-                executeAction("distributeResources");
+                if (userRole.ordinal() <= Role.LOW.ordinal()) {
+                    groupService.requestApproval("DISTRIBUTE", this, "Grupo-LOW");
+                } else {
+                    sendMessage("Permissão insuficiente para iniciar DISTRIBUTE.");
+                }
+                break;
+
+            case "APPROVE":
+                if (parts.length < 2) {
+                    sendMessage("Uso: APPROVE [ação]");
+                } else {
+                    String approvalAction = parts[1];
+                    ApprovalRequest request = groupService.getPendingApproval(approvalAction);
+                    if (request != null) {
+                        groupService.approveAction(this, request);
+                    } else {
+                        sendMessage("Nenhum pedido de aprovação encontrado para " + approvalAction);
+                    }
+                }
                 break;
             default:
-                out.println("Comando desconhecido: " + action);
+                sendMessage("Comando desconhecido.");
         }
     }
 
@@ -139,7 +177,7 @@ public class ClientHandler extends Thread {
 
     // Envia uma mensagem para todos os membros de um grupo
     private void sendMessageToGroup(String groupName, String message) {
-        groupService.sendMessageToGroup(groupName, email + ": " + message);
+        groupService.sendMessageToGroup(groupName, email + ": " + message, this);
     }
 
     // Executa uma ação que requer autorização, como evacuar ou ativar emergência
@@ -171,8 +209,9 @@ public class ClientHandler extends Thread {
         }
     }
 
-    // Retorna o nome de utilizador
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
+
+    public Role getRole() { return userRole; }
 }

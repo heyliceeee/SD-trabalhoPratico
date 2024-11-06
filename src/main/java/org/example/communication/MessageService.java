@@ -18,8 +18,8 @@ import java.util.Queue;
  * - Histórico de Mensagens: Opcionalmente, fazer o log das mensagens enviadas para fins de auditoria.
  */
 public class MessageService {
-    private Map<String, Queue<String>> offlineMessages = new HashMap<>();
-    private Map<String, ClientHandler> onlineClients = new HashMap<>();
+    private Map<String, Queue<String>> offlineMessages = new HashMap<>(); // Armazena mensagens para utilizadores offline
+    private Map<String, ClientHandler> onlineClients = new HashMap<>(); // Armazena os clientes online
     private UserManager userManager;
 
     public MessageService(UserManager userManager) {
@@ -29,10 +29,9 @@ public class MessageService {
     public void sendMessage(String toUser, String message) {
         ClientHandler recipient = onlineClients.get(toUser);
         if (recipient != null) {
-            recipient.sendMessage(message);
-            Logger.logMessage(userManager.getUserEmail(recipient), toUser, message);
+            recipient.sendMessage(message); // Envia a mensagem diretamente se o destinatário está online
         } else {
-            offlineMessages.computeIfAbsent(toUser, k -> new LinkedList<>()).add(message);
+            offlineMessages.computeIfAbsent(toUser, k -> new LinkedList<>()).add(message); // Armazena a mensagem se o destinatário está offline
         }
     }
 
@@ -46,18 +45,19 @@ public class MessageService {
             ClientHandler client = onlineClients.get(user);
             if (client != null) {
                 while (!messages.isEmpty()) {
-                    client.sendMessage(messages.poll());
+                    client.sendMessage(messages.poll()); // Envia todas as mensagens pendentes
                 }
             }
         }
     }
 
-    public void registerOnlineClient(String email, ClientHandler client) {
-        onlineClients.put(email, client);
+    public void registerOnlineClient(String username, ClientHandler clientHandler) {
+        onlineClients.put(username, clientHandler); // Regista o cliente como online
+        deliverPendingMessages(username); // Entrega mensagens pendentes ao cliente que acabou de se conectar
     }
 
-    public void unregisterOnlineClient(String email) {
-        onlineClients.remove(email);
+    public void unregisterOnlineClient(String username) {
+        onlineClients.remove(username); // Remove o cliente da lista de online
     }
 
     public Map<String, ClientHandler> getOnlineClients() {

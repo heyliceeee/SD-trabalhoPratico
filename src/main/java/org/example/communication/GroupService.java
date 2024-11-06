@@ -113,16 +113,16 @@ public class GroupService {
         ApprovalRequest request = new ApprovalRequest(action, requester, requiredRole);
         pendingApprovals.add(request);
 
-        // Notifica o grupo apropriado para aprovação, excluindo o próprio solicitante
+        // Notifica o grupo apropriado para aprovação, excluindo o próprio pedinte
         List<ClientHandler> members = groups.get(requiredGroup);
         if (members != null) {
             for (ClientHandler client : members) {
                 if (!client.equals(requester)) {
-                    client.sendMessage("Aprovação necessária para " + action + " iniciada por " + requester.getEmail());
+                    client.sendMessage("-- Aprovação necessária para " + action + " iniciada por " + requester.getEmail() + " --");
                 }
             }
         }
-        requester.sendMessage("Solicitação de " + action + " enviada para aprovação.");
+        requester.sendMessage("-- Pedido de " + action + " enviada para aprovação. --");
     }
 
     public ApprovalRequest getPendingApproval(String action) {

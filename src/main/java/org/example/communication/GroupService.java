@@ -18,11 +18,11 @@ public class GroupService {
 
     public GroupService() {
         // Inicializa grupos default
-        createGroup("Grupo-geral");
+        createGroup("GRUPO-GERAL");
         createGroup("GRUPO-HIGH");
         createGroup("GRUPO-MEDIUM");
         createGroup("GRUPO-LOW");
-        createGroup("Grupo-REGULAR");
+        createGroup("GRUPOREGULAR");
     }
 
     // Cria um novo grupo
@@ -41,26 +41,26 @@ public class GroupService {
     }
 
     public void addUserToDefaultGroups(ClientHandler clientHandler, Role userRole) {
-        joinGroup("Grupo-geral", clientHandler);  // Todos pertencem ao grupo "geral"
+        joinGroup("GRUPO-GERAL", clientHandler);  // Todos pertencem ao grupo "geral"
 
         // Adiciona o utilizador ao seu grupo e aos grupos de roles inferiores
         if (userRole == Role.HIGH) {
             joinGroup("GRUPO-HIGH", clientHandler);
             joinGroup("GRUPO-MEDIUM", clientHandler);
             joinGroup("GRUPO-LOW", clientHandler);
-            joinGroup("Grupo-REGULAR", clientHandler);
+            joinGroup("GRUPOREGULAR", clientHandler);
 
         } else if (userRole == Role.MEDIUM) {
             joinGroup("GRUPO-MEDIUM", clientHandler);
             joinGroup("GRUPO-LOW", clientHandler);
-            joinGroup("Grupo-REGULAR", clientHandler);
+            joinGroup("GRUPOREGULAR", clientHandler);
 
         } else if (userRole == Role.LOW) {
             joinGroup("GRUPO-LOW", clientHandler);
-            joinGroup("Grupo-REGULAR", clientHandler);
+            joinGroup("GRUPOREGULAR", clientHandler);
 
         } else {
-            joinGroup("Grupo-REGULAR", clientHandler);
+            joinGroup("GRUPOREGULAR", clientHandler);
         }
     }
 
@@ -70,7 +70,7 @@ public class GroupService {
         List<ClientHandler> members = groups.get(groupName);
 
         if (members != null && members.contains(sender)) {
-            for (ClientHandler client : members) {
+            for (ClientHandler client : members)  {
 
                 if(client.getEmail() == sender.getEmail()) //se fui eu que enviei
                 {
@@ -137,7 +137,7 @@ public class GroupService {
     public void approveAction(ClientHandler approver, ApprovalRequest request) {
         if (!request.getRequester().equals(approver) && approver.getRole().ordinal() <= request.getRequiredRole().ordinal()) {
             // Aprovação válida, envia confirmação para o grupo "geral"
-            sendMessageToGroup("Grupo-geral", "Ação aprovada: " + request.getAction() + " por " + approver.getEmail(), approver);
+            sendMessageToGroup("GRUPO-GERAL", "Ação aprovada: " + request.getAction() + " por " + approver.getEmail(), approver);
             pendingApprovals.remove(request);
         } else {
             approver.sendMessage("Você não tem permissão para aprovar esta ação ou é o próprio requisitante.");

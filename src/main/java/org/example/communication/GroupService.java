@@ -46,6 +46,43 @@ public class GroupService {
     // Remove um cliente do grupo
     public void leaveGroup(String groupName, ClientHandler clientHandler) {
         groups.getOrDefault(groupName, new ArrayList<>()).remove(clientHandler);
+
+        // Remove o cliente do grupo
+        List<ClientHandler> members = groups.get(groupName);
+        if (members != null) {
+            members.remove(clientHandler);
+        }
+
+        // Atualiza o arquivo user_groups.txt para remover a associação
+        removeUserFromGroupFile(clientHandler.getEmail(), groupName);
+    }
+
+    // Método para remover o usuário do arquivo
+    private void removeUserFromGroupFile(String email, String groupName) {
+        List<String> lines = new ArrayList<>();
+
+        // Ler as linhas atuais do arquivo
+        try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Adicionar linha à lista se não for a que queremos remover
+                if (!line.equals(email + "," + groupName)) {
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao ler grupos de usuários: " + e.getMessage());
+        }
+
+        // Reescrever o arquivo sem a linha removida
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE))) {
+            for (String l : lines) {
+                bw.write(l);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar grupos de usuários: " + e.getMessage());
+        }
     }
 
     public void addUserToDefaultGroups(ClientHandler clientHandler, Role userRole) {
@@ -154,10 +191,10 @@ public class GroupService {
 
     // Método para salvar grupos de um usuário em um arquivo
     public void saveUserGroups(String email) {
-        // Primeiro, obtemos a lista de grupos para o utilizador
+        // Obter a lista de grupos do usuário
         List<String> userGroups = getGroupsForUser(email);
 
-        // Carregar grupos existentes do ficheiro para verificar duplicatas
+        // Carregar grupos existentes do arquivo para verificar duplicatas
         Set<String> existingEntries = new HashSet<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
@@ -169,19 +206,20 @@ public class GroupService {
             System.err.println("Erro ao carregar grupos existentes: " + e.getMessage());
         }
 
-        // Agora, adicionar apenas grupos que ainda não estão no ficheiro
+        // Adicionar apenas grupos que ainda não estão no arquivo
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE, true))) {
             for (String groupName : userGroups) {
-                String entry = email + "," + groupName;
+                String entry = email + "," + groupName.trim(); // Use trim() para remover espaços em branco
                 if (!existingEntries.contains(entry)) {
                     bw.write(entry);
                     bw.newLine();
                 }
             }
         } catch (IOException e) {
-            System.err.println("Erro ao guardar grupos dos utilizadores: " + e.getMessage());
+            System.err.println("Erro ao salvar grupos de usuários: " + e.getMessage());
         }
     }
+
 
     // Método que retorna os grupos de um utilizador
     public List<String> getGroupsForUser(String email) {

@@ -17,6 +17,7 @@ public class GroupService {
     private Map<String, List<ClientHandler>> groups = new HashMap<>(); // Mapa de grupos e membros
     private Queue<ApprovalRequest> pendingApprovals = new LinkedList<>(); //pedidos de aprovacao de mensagens
     public static final String GROUPS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\user_groups.txt";
+    private MessageService messageService;
 
 
 
@@ -190,7 +191,7 @@ public class GroupService {
                     String email = parts[0];
                     String groupName = parts[1];
                     // Adicione o usuário ao grupo
-                    joinGroup(groupName, MessageService.getClientHandlerByEmail(email));
+                    joinGroup(groupName, messageService.getClientHandlerByEmail(email));
                 }
             }
         } catch (IOException e) {

@@ -31,7 +31,7 @@ public class Logger {
             writer.write(logEntry);
             writer.newLine();
         } catch (IOException e) {
-            //System.err.println("Erro ao escrever no log: " + e.getMessage());
+            System.err.println("Erro ao escrever no log: " + e.getMessage());
         }
         synchronized (recentOperations) {
             if (recentOperations.size() >= MAX_RECENT_OPERATIONS) {

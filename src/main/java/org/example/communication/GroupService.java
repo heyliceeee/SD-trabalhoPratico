@@ -27,7 +27,7 @@ public class GroupService {
         createGroup("GRUPO-HIGH");
         createGroup("GRUPO-MEDIUM");
         createGroup("GRUPO-LOW");
-        createGroup("GRUPOREGULAR");
+        createGroup("GRUPO-REGULAR");
     }
 
     // Cria um novo grupo
@@ -56,19 +56,19 @@ public class GroupService {
             joinGroup("GRUPO-HIGH", clientHandler);
             joinGroup("GRUPO-MEDIUM", clientHandler);
             joinGroup("GRUPO-LOW", clientHandler);
-            joinGroup("GRUPOREGULAR", clientHandler);
+            joinGroup("GRUPO-REGULAR", clientHandler);
 
         } else if (userRole == Role.MEDIUM) {
             joinGroup("GRUPO-MEDIUM", clientHandler);
             joinGroup("GRUPO-LOW", clientHandler);
-            joinGroup("GRUPOREGULAR", clientHandler);
+            joinGroup("GRUPO-REGULAR", clientHandler);
 
         } else if (userRole == Role.LOW) {
             joinGroup("GRUPO-LOW", clientHandler);
-            joinGroup("GRUPOREGULAR", clientHandler);
+            joinGroup("GRUPO-REGULAR", clientHandler);
 
         } else {
-            joinGroup("GRUPOREGULAR", clientHandler);
+            joinGroup("GRUPO-REGULAR", clientHandler);
         }
     }
 
@@ -154,24 +154,38 @@ public class GroupService {
 
     // Método para salvar grupos de um usuário em um arquivo
     public void saveUserGroups(String email) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE, true))) {
+        // Primeiro, obtemos a lista de grupos para o utilizador
+        List<String> userGroups = getGroupsForUser(email);
 
-            List<String> members = getGroupsForUser(email);
+        // Carregar grupos existentes do ficheiro para verificar duplicatas
+        Set<String> existingEntries = new HashSet<>();
 
-            for (String groupName : members) {
-                bw.write(email + "," + groupName);
-                bw.newLine();
+        try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                existingEntries.add(line);
             }
         } catch (IOException e) {
-            System.err.println("Erro ao salvar grupos de usuários: " + e.getMessage());
+            System.err.println("Erro ao carregar grupos existentes: " + e.getMessage());
+        }
+
+        // Agora, adicionar apenas grupos que ainda não estão no ficheiro
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE, true))) {
+            for (String groupName : userGroups) {
+                String entry = email + "," + groupName;
+                if (!existingEntries.contains(entry)) {
+                    bw.write(entry);
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao guardar grupos dos utilizadores: " + e.getMessage());
         }
     }
 
     // Método que retorna os grupos de um utilizador
     public List<String> getGroupsForUser(String email) {
-
         List<String> userGroups = new ArrayList<>();
-
         for (Map.Entry<String, List<ClientHandler>> entry : groups.entrySet()) {
             for (ClientHandler member : entry.getValue()) {
                 if (member.getEmail().equals(email)) {
@@ -179,7 +193,8 @@ public class GroupService {
                 }
             }
         }
-        return userGroups;
+        // Retornar uma lista sem duplicatas
+        return new ArrayList<>(new HashSet<>(userGroups));
     }
 
     public void loadUserGroups() {

@@ -52,7 +52,6 @@ public class ReportScheduler extends Thread {
     private String generateReport() {
         StringBuilder report = new StringBuilder();
         report.append("Relatório do Sistema - ").append(LocalDateTime.now().format(formatter)).append("\n");
-        report.append("Utilizadores Ativos: ").append(messageService.getOnlineClients().keySet()).append("\n");
         report.append("Operações Recentes:\n");
         report.append(Logger.getRecentOperations());
         report.append("\n---------------------------\n");

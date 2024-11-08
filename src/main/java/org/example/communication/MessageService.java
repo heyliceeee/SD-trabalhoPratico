@@ -4,10 +4,7 @@ package org.example.communication;
 import org.example.authentication.UserManager;
 import org.example.logging.Logger;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Gere o envio de mensagens, incluindo o armazenamento de mensagens para entrega posterior (quando o cliente estiver offline)
@@ -54,10 +51,16 @@ public class MessageService {
     public void registerOnlineClient(String username, ClientHandler clientHandler) {
         onlineClients.put(username, clientHandler); // Regista o cliente como online
         deliverPendingMessages(username); // Entrega mensagens pendentes ao cliente que acabou de se conectar
+
+        // Logar users ativos
+        Logger.logActiveUsers(new ArrayList<>(onlineClients.keySet()));
     }
 
     public void unregisterOnlineClient(String username) {
         onlineClients.remove(username); // Remove o cliente da lista de online
+
+        // Logar users ativos após a remoção
+        Logger.logActiveUsers(new ArrayList<>(onlineClients.keySet()));
     }
 
     public Map<String, ClientHandler> getOnlineClients() {

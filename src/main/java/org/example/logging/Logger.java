@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -54,6 +55,12 @@ public class Logger {
     public static void logAuthentication(String email, boolean success) {
         String logMessage = String.format("Tentativa de login %s para o email: %s", success ? "bem-sucedida" : "falhou", email);
         logEvent("AUTHENTICATION", logMessage);
+    }
+
+    public static void logActiveUsers(List<String> activeUsers) {
+        String activeUsersList = String.join(", ", activeUsers);
+        String logMessage = String.format("%s", activeUsersList);
+        logEvent("ACTIVE_USERS", logMessage);
     }
 
     public static String getRecentOperations() {

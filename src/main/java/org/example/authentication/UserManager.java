@@ -7,6 +7,8 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 /**
  * Gere o registo e a autenticacao dos utilizadores
  *
@@ -23,6 +25,7 @@ public class UserManager {
     public UserManager() {
         loadUsersFromFile();
     }
+
 
     // Regista um novo utilizador no sistema
     public boolean registerUser(String email, String password, String role) {

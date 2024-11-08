@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class MessageService {
     private Map<String, Queue<String>> offlineMessages = new HashMap<>(); // Armazena mensagens para utilizadores offline
-    private Map<String, ClientHandler> onlineClients = new HashMap<>(); // Armazena os clientes online
+    public static Map<String, ClientHandler> onlineClients = new HashMap<>(); // Armazena os clientes online
     private UserManager userManager;
 
     public MessageService(UserManager userManager) {
@@ -65,5 +65,9 @@ public class MessageService {
 
     public Map<String, ClientHandler> getOnlineClients() {
         return onlineClients;
+    }
+
+    public static ClientHandler getClientHandlerByEmail(String email) {
+        return onlineClients.get(email); // Assume que o email é usado como chave
     }
 }

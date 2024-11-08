@@ -22,6 +22,9 @@ public class Main {
                 try {
                     ChatServer chatServer = new ChatServer(12345);  // Define a porta do servidor
                     chatServer.start();
+
+                    // Carrega grupos de utilizadores após o servidor iniciar
+                    groupService.loadUserGroups(); // Chamada após o servidor estar em execução
                 } catch (Exception e) {
                     System.err.println("Erro ao iniciar o servidor de chat: " + e.getMessage());
                 }

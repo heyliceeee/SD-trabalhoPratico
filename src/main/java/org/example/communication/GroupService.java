@@ -2,6 +2,7 @@ package org.example.communication;
 
 import org.example.hierarchy.Role;
 
+import java.io.*;
 import java.util.*;
 
 /**
@@ -15,6 +16,9 @@ import java.util.*;
 public class GroupService {
     private Map<String, List<ClientHandler>> groups = new HashMap<>(); // Mapa de grupos e membros
     private Queue<ApprovalRequest> pendingApprovals = new LinkedList<>(); //pedidos de aprovacao de mensagens
+    public static final String GROUPS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\user_groups.txt";
+
+
 
     public GroupService() {
         // Inicializa grupos default
@@ -33,6 +37,9 @@ public class GroupService {
     // Adiciona um cliente ao grupo
     public void joinGroup(String groupName, ClientHandler clientHandler) {
         groups.getOrDefault(groupName, new ArrayList<>()).add(clientHandler);
+
+        // Guardar grupos do utilizador após adicioná-lo
+        saveUserGroups(clientHandler.getEmail());
     }
 
     // Remove um cliente do grupo
@@ -141,6 +148,53 @@ public class GroupService {
             pendingApprovals.remove(request);
         } else {
             approver.sendMessage("Você não tem permissão para aprovar esta ação ou é o próprio requisitante.");
+        }
+    }
+
+    // Método para salvar grupos de um usuário em um arquivo
+    public void saveUserGroups(String email) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE, true))) {
+
+            List<String> members = getGroupsForUser(email);
+
+            for (String groupName : members) {
+                bw.write(email + "," + groupName);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar grupos de usuários: " + e.getMessage());
+        }
+    }
+
+    // Método que retorna os grupos de um utilizador
+    public List<String> getGroupsForUser(String email) {
+
+        List<String> userGroups = new ArrayList<>();
+
+        for (Map.Entry<String, List<ClientHandler>> entry : groups.entrySet()) {
+            for (ClientHandler member : entry.getValue()) {
+                if (member.getEmail().equals(email)) {
+                    userGroups.add(entry.getKey());
+                }
+            }
+        }
+        return userGroups;
+    }
+
+    public void loadUserGroups() {
+        try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String email = parts[0];
+                    String groupName = parts[1];
+                    // Adicione o usuário ao grupo
+                    joinGroup(groupName, MessageService.getClientHandlerByEmail(email));
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar grupos de usuários: " + e.getMessage());
         }
     }
 }

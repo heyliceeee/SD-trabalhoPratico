@@ -19,9 +19,9 @@ public class GroupService {
     public GroupService() {
         // Inicializa grupos default
         createGroup("Grupo-geral");
-        createGroup("Grupo-HIGH");
-        createGroup("Grupo-MEDIUM");
-        createGroup("Grupo-LOW");
+        createGroup("GRUPO-HIGH");
+        createGroup("GRUPO-MEDIUM");
+        createGroup("GRUPO-LOW");
         createGroup("Grupo-REGULAR");
     }
 
@@ -45,18 +45,18 @@ public class GroupService {
 
         // Adiciona o utilizador ao seu grupo e aos grupos de roles inferiores
         if (userRole == Role.HIGH) {
-            joinGroup("Grupo-HIGH", clientHandler);
-            joinGroup("Grupo-MEDIUM", clientHandler);
-            joinGroup("Grupo-LOW", clientHandler);
+            joinGroup("GRUPO-HIGH", clientHandler);
+            joinGroup("GRUPO-MEDIUM", clientHandler);
+            joinGroup("GRUPO-LOW", clientHandler);
             joinGroup("Grupo-REGULAR", clientHandler);
 
         } else if (userRole == Role.MEDIUM) {
-            joinGroup("Grupo-MEDIUM", clientHandler);
-            joinGroup("Grupo-LOW", clientHandler);
+            joinGroup("GRUPO-MEDIUM", clientHandler);
+            joinGroup("GRUPO-LOW", clientHandler);
             joinGroup("Grupo-REGULAR", clientHandler);
 
         } else if (userRole == Role.LOW) {
-            joinGroup("Grupo-LOW", clientHandler);
+            joinGroup("GRUPO-LOW", clientHandler);
             joinGroup("Grupo-REGULAR", clientHandler);
 
         } else {

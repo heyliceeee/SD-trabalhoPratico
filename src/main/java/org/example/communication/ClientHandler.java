@@ -107,7 +107,7 @@ public class ClientHandler extends Thread {
                 break;
             case "GROUPMSG":
                 if (parts.length < 3) {
-                    sendMessage("Uso: GROUPMSG [nome do grupo] [mensagem]");
+                    sendMessage("Uso: GROUPMSG [grupo] [mensagem]");
                 } else {
                     String groupName = parts[1];
                     String message = parts[2];
@@ -117,13 +117,13 @@ public class ClientHandler extends Thread {
                 }
                 break;
             case "EVACUATE":
-                groupService.requestApproval("EVACUATE", this, "Grupo-HIGH");
+                groupService.requestApproval("EVACUATE", this, "GRUPO-HIGH");
                 break;
             case "ACTIVATE":
-                groupService.requestApproval("ACTIVATE", this, "Grupo-MEDIUM");
+                groupService.requestApproval("ACTIVATE", this, "GRUPO-MEDIUM");
                 break;
             case "DISTRIBUTE":
-                groupService.requestApproval("DISTRIBUTE", this, "Grupo-LOW");
+                groupService.requestApproval("DISTRIBUTE", this, "GRUPO-LOW");
                 break;
 
             case "APPROVE":

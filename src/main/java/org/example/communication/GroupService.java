@@ -3,6 +3,7 @@ package org.example.communication;
 import org.example.hierarchy.Role;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -17,6 +18,8 @@ public class GroupService {
     private Map<String, List<ClientHandler>> groups = new HashMap<>(); // Mapa de grupos e membros
     private Queue<ApprovalRequest> pendingApprovals = new LinkedList<>(); //pedidos de aprovacao de mensagens
     public static final String GROUPS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\user_groups.txt";
+    public static final String GROUPMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\group_messages.txt";
+
     private MessageService messageService;
 
 
@@ -111,13 +114,12 @@ public class GroupService {
 
     // Envia uma mensagem para todos os membros de um grupo
     public void sendMessageToGroup(String groupName, String message, ClientHandler sender) {
-        // Verifica se o remetente pertence ao grupo antes de enviar a mensagem
-        List<ClientHandler> members = groups.get(groupName);
+        List<ClientHandler> members = groups.get(groupName); //membros do grupo
 
-        if (members != null && members.contains(sender)) {
+        if (members != null && members.contains(sender)) { // Verifica se o remetente pertence ao grupo antes de enviar a mensagem
             for (ClientHandler client : members)  {
 
-                if(client.getEmail() == sender.getEmail()) //se fui eu que enviei
+                if(client.getEmail().equals(sender.getEmail())) //se fui eu que enviei
                 {
                     // Adiciona o email do destinatário na mensagem enviada
                     String messageWithRecipient = String.format("(%s): %s", groupName, message);
@@ -125,9 +127,16 @@ public class GroupService {
                 }
                 else
                 {
-                    // Adiciona o email do destinatário na mensagem enviada
-                    String messageWithRecipient = String.format("%s (%s): %s", sender.getEmail(), groupName, message);
-                    client.sendMessage(messageWithRecipient);
+                    ClientHandler member = messageService.getOnlineClients().get(client.getEmail());
+                    if(member != null) { //verifica se o destinatario ta offline
+
+                        storeGroupMessage(groupName, message);
+
+                    } else {
+                        // Adiciona o email do destinatário na mensagem enviada
+                        String messageWithRecipient = String.format("%s (%s): %s", sender.getEmail(), groupName, message);
+                        client.sendMessage(messageWithRecipient);
+                    }
                 }
             }
         } else {
@@ -249,6 +258,16 @@ public class GroupService {
             }
         } catch (IOException e) {
             System.err.println("Erro ao carregar grupos de usuários: " + e.getMessage());
+        }
+    }
+
+
+    private void storeGroupMessage(String groupName, String message) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPMESSAGES_FILE, true))) {
+            bw.write(String.format("%s,%s,%s", groupName, message, LocalDateTime.now()));
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Erro ao armazenar mensagem de grupo: " + e.getMessage());
         }
     }
 }

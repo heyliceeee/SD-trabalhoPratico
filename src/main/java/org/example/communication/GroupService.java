@@ -119,7 +119,7 @@ public class GroupService {
     // membros online do grupo
     public List<ClientHandler> getOnlineMembersOfGroup(String groupName) {
         // Obter os membros do grupo
-        List<ClientHandler> members = groups.get(groupName);
+        List<ClientHandler> members = loadMembersGroup(groupName);
 
         // Obter os utilizadores online
         Collection<ClientHandler> onlineUsers = messageService.getOnlineClients().values(); // Retorna os valores (ClientHandler) do mapa
@@ -149,7 +149,7 @@ public class GroupService {
 
     //membros offline do grupo
     public List<ClientHandler> getOfflineMembersOfGroup(String groupName) {
-        List<ClientHandler> members = groups.get(groupName); // Obter membros do grupo
+        List<ClientHandler> members = loadMembersGroup(groupName); // Obter membros do grupo
         Collection<ClientHandler> onlineUsers = messageService.getOnlineClients().values(); // Usuários online
 
         List<ClientHandler> offlineMembers = new ArrayList<>();
@@ -177,12 +177,41 @@ public class GroupService {
     }
 
 
+    public List<ClientHandler> loadMembersGroup(String groupName) {
+        List<ClientHandler> members = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String email = parts[0];
+                    String groupNameFile = parts[1];
+
+                    if (groupNameFile.equals(groupName)) { // Verifica se o grupo corresponde
+                        ClientHandler member = messageService.getClientHandlerByEmail(email); // obter o ClientHandler com base no email
+                        if (member != null) {
+                            members.add(member); // Adiciona o ClientHandler à lista
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar membros do grupos: " + e.getMessage());
+        }
+
+        return members;
+    }
+
+
 
     // Envia uma mensagem para todos os membros de um grupo
     public void sendMessageToGroup(String groupName, String message, ClientHandler sender) {
         // Obter os membros do grupo
-        List<ClientHandler> members = groups.get(groupName);
-        // Obter os usuários online e offline
+        List<ClientHandler> members = loadMembersGroup(groupName);
+
+        // Obter os utilizadores online e offline
         List<ClientHandler> onlineMembers = getOnlineMembersOfGroup(groupName);
         List<ClientHandler> offlineMembers = getOfflineMembersOfGroup(groupName);
 
@@ -190,7 +219,6 @@ public class GroupService {
 
             // Armazenar a mensagem para todos os membros offline, independentemente de estarem registrados
             for (ClientHandler offlineMember : offlineMembers) {
-                System.out.println("MEMBRO OFFLINE: " + offlineMember.getEmail());
                 messageService.storeGroupMessage(offlineMember.getEmail(), groupName, message); // Armazenar a mensagem para membros offline
             }
 
@@ -320,12 +348,12 @@ public class GroupService {
                 if (parts.length == 2) {
                     String email = parts[0];
                     String groupName = parts[1];
-                    // Adicione o usuário ao grupo
+                    // Adicione o utilizador ao grupo
                     joinGroup(groupName, messageService.getClientHandlerByEmail(email));
                 }
             }
         } catch (IOException e) {
-            System.err.println("Erro ao carregar grupos de usuários: " + e.getMessage());
+            System.err.println("Erro ao carregar grupos de utilizadores: " + e.getMessage());
         }
     }
 }

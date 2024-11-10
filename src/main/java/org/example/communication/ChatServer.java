@@ -24,11 +24,22 @@ public class ChatServer {
         System.out.println("Servidor de chat em execução na porta " + port);
     }
 
+    /**
+     * Método para iniciar o servidor e aceitar conexões de clientes
+     */
     public void start() {
         while (true) {
             try {
+                // Aceitar a conexão do cliente
                 Socket clientSocket = serverSocket.accept();
-                new ClientHandler(clientSocket, userManager, messageService, groupService).start();
+
+                // Criar um ClientHandler para cada novo cliente e iniciar uma nova thread
+                ClientHandler clientHandler = new ClientHandler(clientSocket, userManager, messageService, groupService);
+                clientHandler.start(); // Inicia o thread de cada cliente
+
+                // Registrar o cliente na MessageService (se desejado)
+                messageService.registerClient(clientHandler);
+
             } catch (IOException e) {
                 System.err.println("Erro ao aceitar conexão de cliente: " + e.getMessage());
             }
@@ -37,7 +48,9 @@ public class ChatServer {
 
     public static void main(String[] args) {
         try {
-            new ChatServer(12345).start();
+            // Inicia o servidor na porta 12345
+            ChatServer server = new ChatServer(12345);
+            server.start();
         } catch (IOException e) {
             System.err.println("Erro ao iniciar o servidor de chat: " + e.getMessage());
         }

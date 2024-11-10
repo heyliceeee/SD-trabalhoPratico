@@ -80,6 +80,7 @@ public class ClientHandler extends Thread {
         if (success) {
             userRole = Role.valueOf(userManager.getUserRole(email).toUpperCase());
             messageService.registerOnlineClient(email, this); // Registra o cliente como online e entrega mensagens pendentes
+            messageService.registerClient(this); // Registra o cliente no sistema
 
             // Adiciona o utilizador aos grupos padrão com base no seu role
             groupService.addUserToDefaultGroups(this, userRole);

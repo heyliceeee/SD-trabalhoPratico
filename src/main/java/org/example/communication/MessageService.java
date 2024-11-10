@@ -23,6 +23,9 @@ public class MessageService {
     private Map<String, ClientHandler> onlineClients = new HashMap<>(); // Armazena os clientes online
     public static final String INDIVIDUALMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\individual_messages.txt";
 
+    // Este mapa mantém todos os clientes, online ou offline
+    private Map<String, ClientHandler> allClients = new HashMap<>();
+
     private UserManager userManager;
 
     public MessageService(UserManager userManager) {
@@ -87,6 +90,16 @@ public class MessageService {
         }
     }
 
+    // Registra todos os clientes, tanto online quanto offline
+    public void registerClient(ClientHandler clientHandler) {
+        allClients.put(clientHandler.getEmail(), clientHandler);
+    }
+
+    // Retorna o ClientHandler pelo email, mesmo que ele esteja offline
+    public ClientHandler getClientHandlerByEmail(String email) {
+        return allClients.get(email);
+    }
+
     public void registerOnlineClient(String username, ClientHandler clientHandler) {
         onlineClients.put(username, clientHandler); // Regista o cliente como online
         deliverPendingMessages(username); // Entrega mensagens pendentes ao cliente que acabou de se conectar
@@ -104,10 +117,6 @@ public class MessageService {
 
     public Map<String, ClientHandler> getOnlineClients() {
         return onlineClients;
-    }
-
-    public ClientHandler getClientHandlerByEmail(String email) {
-        return onlineClients.get(email); // Assume que o email é usado como chave
     }
 
     private void loadGroupMessages(String userEmail) {

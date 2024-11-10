@@ -59,3 +59,6 @@
 [2024-11-10 18:35:10] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
 [2024-11-10 18:38:19] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
 [2024-11-10 18:38:19] ACTIVE_USERS: operador1@protecao.gov.pt
+[2024-11-10 18:51:30] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
+[2024-11-10 18:54:36] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
+[2024-11-10 18:56:06] ACTIVE_USERS: coord_local1@protecao.gov.pt

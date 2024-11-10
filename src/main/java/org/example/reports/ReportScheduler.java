@@ -18,7 +18,7 @@ import java.util.List;
  * Responsabilidades:
  * - Gerar Relatórios Periódicos: Criar relatórios em intervalos regulares.
  * - Enviar Relatórios aos Clientes: Enviar o conteúdo do relatório para todos os clientes ativos.
- * - Registar os Relatórios: Opcionalmente, salvar os relatórios em um ficheiro para consulta futura.
+ * - Registar os Relatórios: Opcionalmente, guardar os relatórios em um ficheiro para consulta futura.
  */
 public class ReportScheduler extends Thread {
     private final long interval;

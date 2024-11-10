@@ -78,7 +78,7 @@ public class MessageService {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",", 3); // Email, mensagem, timestamp
                 if (parts.length == 3 && parts[0].equals(user)) {
-                    // Entregar mensagem ao usuário
+                    // Entregar mensagem ao utulizador
                     ClientHandler client = onlineClients.get(user);
                     if (client != null) {
                         client.sendMessage("Mensagem recebida: " + parts[1] + " [" + parts[2] + "]");
@@ -123,12 +123,12 @@ public class MessageService {
         try (BufferedReader br = new BufferedReader(new FileReader(GROUPMESSAGES_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",", 4); // email_do_remetente, grupo, mensagem, timestamp
-                if (parts.length == 4 && !parts[0].equals(userEmail)) { // Verifique se não é a mensagem do próprio usuário
-                    // Entregar mensagem ao usuário
+                String[] parts = line.split(",", 5); // email destinatario, grupo, email remetente, mensagem, timestamp
+                if (parts.length == 5 && !parts[2].equals(userEmail) && parts[0].equals(userEmail)) { // Verifique se não é a mensagem do próprio utilizador e se é para o utilizador
+                    // Entregar mensagem ao utilizador
                     ClientHandler client = onlineClients.get(userEmail);
                     if (client != null) {
-                        client.sendMessage("Mensagem de grupo [" + parts[0] + "] de " + parts[1] + ": " + parts[2] + " [" + parts[3] + "]");
+                        client.sendMessage("Mensagem de grupo [" + parts[1] + "] de " + parts[2] + ": " + parts[3] + " [" + parts[4] + "]");
                     }
                 }
             }
@@ -138,9 +138,9 @@ public class MessageService {
     }
 
     //guardar as mensagens de grupo para os utilizadores offline
-    void storeGroupMessage(String receiver, String groupName, String message) {
+    void storeGroupMessage(String receiver, String groupName, String sender, String message) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPMESSAGES_FILE, true))) {
-            bw.write(String.format("%s,%s,%s,%s", receiver, groupName, message, LocalDateTime.now()));
+            bw.write(String.format("%s,%s,%s,%s,%s", receiver, groupName, sender, message, LocalDateTime.now()));
             bw.newLine();
         } catch (IOException e) {
             System.err.println("Erro ao armazenar mensagem de grupo: " + e.getMessage());

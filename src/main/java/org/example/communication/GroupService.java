@@ -60,15 +60,15 @@ public class GroupService {
             members.remove(clientHandler);
         }
 
-        // Atualiza o arquivo user_groups.txt para remover a associação
+        // Atualiza o ficheiro user_groups.txt para remover a associação
         removeUserFromGroupFile(clientHandler.getEmail(), groupName);
     }
 
-    // Método para remover o usuário do arquivo
+    // Método para remover o utilizador do ficheiro
     private void removeUserFromGroupFile(String email, String groupName) {
         List<String> lines = new ArrayList<>();
 
-        // Ler as linhas atuais do arquivo
+        // Ler as linhas atuais do ficheiro
         try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -78,17 +78,17 @@ public class GroupService {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Erro ao ler grupos de usuários: " + e.getMessage());
+            System.err.println("Erro ao ler grupos de utilizadores: " + e.getMessage());
         }
 
-        // Reescrever o arquivo sem a linha removida
+        // Reescrever o ficheiro sem a linha removida
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE))) {
             for (String l : lines) {
                 bw.write(l);
                 bw.newLine();
             }
         } catch (IOException e) {
-            System.err.println("Erro ao salvar grupos de usuários: " + e.getMessage());
+            System.err.println("Erro ao guardar grupos de utilizadores: " + e.getMessage());
         }
     }
 
@@ -150,7 +150,7 @@ public class GroupService {
     //membros offline do grupo
     public List<ClientHandler> getOfflineMembersOfGroup(String groupName) {
         List<ClientHandler> members = loadMembersGroup(groupName); // Obter membros do grupo
-        Collection<ClientHandler> onlineUsers = messageService.getOnlineClients().values(); // Usuários online
+        Collection<ClientHandler> onlineUsers = messageService.getOnlineClients().values(); // utilizadores online
 
         List<ClientHandler> offlineMembers = new ArrayList<>();
 
@@ -205,7 +205,6 @@ public class GroupService {
     }
 
 
-
     // Envia uma mensagem para todos os membros de um grupo
     public void sendMessageToGroup(String groupName, String message, ClientHandler sender) {
         // Obter os membros do grupo
@@ -219,7 +218,7 @@ public class GroupService {
 
             // Armazenar a mensagem para todos os membros offline, independentemente de estarem registrados
             for (ClientHandler offlineMember : offlineMembers) {
-                messageService.storeGroupMessage(offlineMember.getEmail(), groupName, message); // Armazenar a mensagem para membros offline
+                messageService.storeGroupMessage(offlineMember.getEmail(), groupName, sender.getEmail(), message); // Armazenar a mensagem para membros offline
             }
 
             // Enviar a mensagem para os membros online
@@ -294,12 +293,12 @@ public class GroupService {
         }
     }
 
-    // Método para salvar grupos de um usuário em um arquivo
+    // Método para guardar grupos de um utilizador em um ficheiro
     public void saveUserGroups(String email) {
-        // Obter a lista de grupos do usuário
+        // Obter a lista de grupos do utilizadores
         List<String> userGroups = getGroupsForUser(email);
 
-        // Carregar grupos existentes do arquivo para verificar duplicatas
+        // Carregar grupos existentes do ficheiro para verificar duplicacoes
         Set<String> existingEntries = new HashSet<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
@@ -311,7 +310,7 @@ public class GroupService {
             System.err.println("Erro ao carregar grupos existentes: " + e.getMessage());
         }
 
-        // Adicionar apenas grupos que ainda não estão no arquivo
+        // Adicionar apenas grupos que ainda não estão no ficheiro
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE, true))) {
             for (String groupName : userGroups) {
                 String entry = email + "," + groupName.trim(); // Use trim() para remover espaços em branco
@@ -321,7 +320,7 @@ public class GroupService {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Erro ao salvar grupos de usuários: " + e.getMessage());
+            System.err.println("Erro ao guardar grupos de utilizadores: " + e.getMessage());
         }
     }
 

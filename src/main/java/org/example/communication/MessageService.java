@@ -8,6 +8,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static org.example.communication.GroupService.GROUPMESSAGES_FILE;
+
 /**
  * Gere o envio de mensagens, incluindo o armazenamento de mensagens para entrega posterior (quando o cliente estiver offline)
  *
@@ -19,7 +21,7 @@ import java.util.*;
 public class MessageService {
     private Map<String, Queue<String>> offlineMessages = new HashMap<>(); // Armazena mensagens para utilizadores offline
     private Map<String, ClientHandler> onlineClients = new HashMap<>(); // Armazena os clientes online
-    public static final String INDIVIDUALMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\group_messages.txt";
+    public static final String INDIVIDUALMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\individual_messages.txt";
 
     private UserManager userManager;
 
@@ -27,7 +29,7 @@ public class MessageService {
         this.userManager = userManager;
     }
 
-    public void sendMessage(String toUser, String message) {
+   public void sendMessage(String toUser, String message) {
         ClientHandler recipient = onlineClients.get(toUser);
         if (recipient != null) {
             recipient.sendMessage(message); // Envia a mensagem diretamente se o destinatário está online
@@ -39,17 +41,8 @@ public class MessageService {
         }
     }
 
-    private void storeGroupMessage(String groupName, String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("group_messages.txt", true))) {
-            bw.write(String.format("%s,%s,%s", groupName, message, LocalDateTime.now()));
-            bw.newLine();
-        } catch (IOException e) {
-            System.err.println("Erro ao armazenar mensagem de grupo: " + e.getMessage());
-        }
-    }
-
     private void storeIndividualMessage(String toUser, String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("individual_messages.txt", true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(INDIVIDUALMESSAGES_FILE, true))) {
             bw.write(String.format("%s,%s,%s", toUser, message, LocalDateTime.now()));
             bw.newLine();
         } catch (IOException e) {
@@ -73,6 +66,7 @@ public class MessageService {
         }
 
         loadIndividualMessages(user);
+        loadGroupMessages(user);
     }
 
     private void loadIndividualMessages(String user) {
@@ -114,5 +108,33 @@ public class MessageService {
 
     public ClientHandler getClientHandlerByEmail(String email) {
         return onlineClients.get(email); // Assume que o email é usado como chave
+    }
+
+    private void loadGroupMessages(String userEmail) {
+        try (BufferedReader br = new BufferedReader(new FileReader(GROUPMESSAGES_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",", 4); // email_do_remetente, grupo, mensagem, timestamp
+                if (parts.length == 4 && !parts[0].equals(userEmail)) { // Verifique se não é a mensagem do próprio usuário
+                    // Entregar mensagem ao usuário
+                    ClientHandler client = onlineClients.get(userEmail);
+                    if (client != null) {
+                        client.sendMessage("Mensagem de grupo [" + parts[0] + "] de " + parts[1] + ": " + parts[2] + " [" + parts[3] + "]");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar mensagens de grupo: " + e.getMessage());
+        }
+    }
+
+    //guardar as mensagens de grupo para os utilizadores offline
+    void storeGroupMessage(String receiver, String groupName, String message) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPMESSAGES_FILE, true))) {
+            bw.write(String.format("%s,%s,%s,%s", receiver, groupName, message, LocalDateTime.now()));
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Erro ao armazenar mensagem de grupo: " + e.getMessage());
+        }
     }
 }

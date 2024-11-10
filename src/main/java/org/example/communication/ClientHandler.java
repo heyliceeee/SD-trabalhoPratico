@@ -113,7 +113,7 @@ public class ClientHandler extends Thread {
                     String message = parts[2];
 
                     // Envia a mensagem para o grupo apenas se o utilizador for membro do grupo
-                    groupService.sendMessageToGroup(groupName, message, this);
+                    sendMessageToGroup(groupName, message);
                 }
                 break;
             case "EVACUATE":

@@ -6,6 +6,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static java.lang.System.out;
+
 /**
  * Gere a criação e a participação em grupos multicast, permitindo que os utilizadores se comuniquem em canais dedicados.
  *
@@ -17,20 +19,22 @@ import java.util.*;
 public class GroupService {
     private Map<String, List<ClientHandler>> groups = new HashMap<>(); // Mapa de grupos e membros
     private Queue<ApprovalRequest> pendingApprovals = new LinkedList<>(); //pedidos de aprovacao de mensagens
-    public static final String GROUPS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\user_groups.txt";
-    public static final String GROUPMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\group_messages.txt";
+    public static final String GROUPS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\user_groups.txt";
+    public static final String GROUPMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\group_messages.txt";
 
     private MessageService messageService;
 
 
 
-    public GroupService() {
+    public GroupService(MessageService messageService) {
         // Inicializa grupos default
         createGroup("GRUPO-GERAL");
         createGroup("GRUPO-HIGH");
         createGroup("GRUPO-MEDIUM");
         createGroup("GRUPO-LOW");
         createGroup("GRUPO-REGULAR");
+
+        this.messageService = messageService;
     }
 
     // Cria um novo grupo
@@ -112,33 +116,97 @@ public class GroupService {
         }
     }
 
-    // Envia uma mensagem para todos os membros de um grupo
-    public void sendMessageToGroup(String groupName, String message, ClientHandler sender) {
-        List<ClientHandler> members = groups.get(groupName); //membros do grupo
+    // membros online do grupo
+    public List<ClientHandler> getOnlineMembersOfGroup(String groupName) {
+        // Obter os membros do grupo
+        List<ClientHandler> members = groups.get(groupName);
 
-        if (members != null && members.contains(sender)) { // Verifica se o remetente pertence ao grupo antes de enviar a mensagem
-            for (ClientHandler client : members)  {
+        // Obter os utilizadores online
+        Collection<ClientHandler> onlineUsers = messageService.getOnlineClients().values(); // Retorna os valores (ClientHandler) do mapa
 
-                if(client.getEmail().equals(sender.getEmail())) //se fui eu que enviei
-                {
-                    // Adiciona o email do destinatário na mensagem enviada
-                    String messageWithRecipient = String.format("(%s): %s", groupName, message);
-                    client.sendMessage(messageWithRecipient);
-                }
-                else
-                {
-                    ClientHandler member = messageService.getOnlineClients().get(client.getEmail());
-                    if(member != null) { //verifica se o destinatario ta offline
+        // Filtrar membros online
+        List<ClientHandler> onlineMembers = new ArrayList<>();
 
-                        storeGroupMessage(groupName, message);
+        // Verifica se o grupo existe
+        if (members != null) {
+            // Cria um Set para armazenar os emails dos utilizadores online para facilitar a busca
+            Set<String> onlineEmails = new HashSet<>();
+            for (ClientHandler onlineUser : onlineUsers) {
+                onlineEmails.add(onlineUser.getEmail()); // Adiciona os emails dos utilizadores online
+            }
 
-                    } else {
-                        // Adiciona o email do destinatário na mensagem enviada
-                        String messageWithRecipient = String.format("%s (%s): %s", sender.getEmail(), groupName, message);
-                        client.sendMessage(messageWithRecipient);
-                    }
+            // Percorrer os membros do grupo e verificar se estão online
+            for (ClientHandler member : members) {
+                if (onlineEmails.contains(member.getEmail())) {
+                    onlineMembers.add(member); // Adicionar à lista de membros online
                 }
             }
+        }
+
+        return onlineMembers; // Retorna a lista de membros online
+    }
+
+
+    //membros offline do grupo
+    public List<ClientHandler> getOfflineMembersOfGroup(String groupName) {
+        List<ClientHandler> members = groups.get(groupName); // Obter membros do grupo
+        Collection<ClientHandler> onlineUsers = messageService.getOnlineClients().values(); // Usuários online
+
+        List<ClientHandler> offlineMembers = new ArrayList<>();
+
+        // Percorrer os membros do grupo e verificar se estão offline
+        if (members != null) {
+            for (ClientHandler member : members) {
+                boolean isOnline = false;
+                // Verificar se o membro está online
+                for (ClientHandler onlineUser : onlineUsers) {
+                    if (member.getEmail().equals(onlineUser.getEmail())) {
+                        isOnline = true; // Se encontrado, o membro está online
+                        break;
+                    }
+                }
+
+                // Se o membro não está online, adicioná-lo à lista de membros offline
+                if (!isOnline) {
+                    offlineMembers.add(member);
+                }
+            }
+        }
+
+        return offlineMembers; // Retornar membros offline
+    }
+
+
+
+    // Envia uma mensagem para todos os membros de um grupo
+    public void sendMessageToGroup(String groupName, String message, ClientHandler sender) {
+        // Obter os membros do grupo
+        List<ClientHandler> members = groups.get(groupName);
+        // Obter os usuários online e offline
+        List<ClientHandler> onlineMembers = getOnlineMembersOfGroup(groupName);
+        List<ClientHandler> offlineMembers = getOfflineMembersOfGroup(groupName);
+
+        if (members != null && members.contains(sender)) { // Verifica se o remetente pertence ao grupo
+
+            // Armazenar a mensagem para todos os membros offline, independentemente de estarem registrados
+            for (ClientHandler offlineMember : offlineMembers) {
+                System.out.println("MEMBRO OFFLINE: " + offlineMember.getEmail());
+                messageService.storeGroupMessage(offlineMember.getEmail(), groupName, message); // Armazenar a mensagem para membros offline
+            }
+
+            // Enviar a mensagem para os membros online
+            for (ClientHandler onlineMember : onlineMembers) {
+                String messageWithRecipient = "";
+
+                if (onlineMember.getEmail().equals(sender.getEmail())) { // Se o remetente for o próprio
+                    messageWithRecipient = String.format("(%s): %s", groupName, message); // Exibir mensagem simples
+                } else {
+                    messageWithRecipient = String.format("%s (%s): %s", sender.getEmail(), groupName, message); // Mensagem para outros membros
+                }
+
+                onlineMember.sendMessage(messageWithRecipient); // Enviar mensagem para o membro online
+            }
+
         } else {
             sender.sendMessage("Erro: Você não tem permissão para enviar mensagens para o grupo " + groupName);
         }
@@ -258,16 +326,6 @@ public class GroupService {
             }
         } catch (IOException e) {
             System.err.println("Erro ao carregar grupos de usuários: " + e.getMessage());
-        }
-    }
-
-
-    private void storeGroupMessage(String groupName, String message) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPMESSAGES_FILE, true))) {
-            bw.write(String.format("%s,%s,%s", groupName, message, LocalDateTime.now()));
-            bw.newLine();
-        } catch (IOException e) {
-            System.err.println("Erro ao armazenar mensagem de grupo: " + e.getMessage());
         }
     }
 }

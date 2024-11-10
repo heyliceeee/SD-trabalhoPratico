@@ -20,7 +20,7 @@ public class ChatServer {
         serverSocket = new ServerSocket(port);
         userManager = new UserManager();
         messageService = new MessageService(userManager);
-        groupService = new GroupService();
+        groupService = new GroupService(messageService);
         System.out.println("Servidor de chat em execução na porta " + port);
     }
 

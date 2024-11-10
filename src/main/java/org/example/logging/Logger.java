@@ -20,7 +20,7 @@ import java.util.Queue;
  * - Estrutura de Log: Cada entrada de log contém o timestamp, o tipo de evento, e a mensagem associada.
  */
 public class Logger {
-    private static final String LOG_FILE = "system.log";
+    private static final String LOG_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\system.log";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final int MAX_RECENT_OPERATIONS = 10;
     private static final Queue<String> recentOperations = new LinkedList<>();

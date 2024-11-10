@@ -15,7 +15,7 @@ public class Main {
             // Inicializa o UserManager, MessageService e GroupService
             UserManager userManager = new UserManager();
             MessageService messageService = new MessageService(userManager);
-            GroupService groupService = new GroupService();
+            GroupService groupService = new GroupService(messageService);
 
             // Inicia o servidor de chat em uma nova thread
             new Thread(() -> {

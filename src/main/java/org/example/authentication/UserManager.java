@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class UserManager {
     private Map<String, User> users = new HashMap<>(); // Mapeia emails para utilizadores
-    private static final String USERS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\org\\example\\users.txt"; // Ficheiro para persistência
+    private static final String USERS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\users.txt";
 
     public UserManager() {
         loadUsersFromFile();

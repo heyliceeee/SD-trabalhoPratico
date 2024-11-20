@@ -1,4 +1,4 @@
-# Como correr o projeto
+## Como correr o projeto
 1. run main.java
 2. run chatClient.java
 

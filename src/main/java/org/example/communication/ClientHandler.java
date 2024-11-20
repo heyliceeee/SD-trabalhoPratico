@@ -88,13 +88,6 @@ public class ClientHandler extends Thread {
             // Adiciona o utilizador aos grupos padrão (GERAL, HIGH, MEDIUM, LOW, REGULAR) com base no seu role
             groupService.addUserToDefaultGroups(this, userRole);
 
-            // Carregar grupos adicionais do ficheiro
-            //List<String> userGroups = groupService.getGroupsForUser(email);
-
-            //for (String group : userGroups) {
-                //groupService.joinGroup(group, this);
-            //}
-
             // Formatar a lista de grupos para exibição
             String formattedGroups = String.join(", ", groupService.getGroupsForUser(email));
             out.println("\n\nAutenticação bem-sucedida. Pertence aos grupos: " + formattedGroups);

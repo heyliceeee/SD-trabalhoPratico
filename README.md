@@ -13,6 +13,7 @@
 | **APPROVE** ACTIVATE            | aprovar (somente users com a role HIGH ou MEDIUM, excluindo quem pediu ACTIVATE)          |                                                                                  |
 | **APPROVE** DISTRIBUTE          | aprovar (somente users com a role HIGH ou MEDIUM ou LOW, excluindo quem pediu DISTRIBUTE) |                                                                                  |
 
+🛑Nota: Para que a funcionalidade de guardar mensagens de grupo funcione para os utilizadores que estiverem offline e as possam consultar mais tarde, é necessário executar o projeto da seguinte forma: iniciar várias instâncias de `ChatClient.java`, uma para cada utilizador que irá fazer login. Depois do login, podes encerrar uma instância, mas o `Main.java` deve permanecer sempre em execução.
    
 # Login
 

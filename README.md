@@ -1,6 +1,18 @@
 # Como correr o projeto
 1. run main.java
 2. run chatClient.java
+
+# Comandos
+| comando                         |                                                                                           | exemplo                                                                          |
+|---------------------------------|-------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| **SEND** [email] [messagem]     | enviar mensagens privadas                                                                 | SEND coord_local1@protecao.gov.pt Boa Tarde Coordenador Local como se encontra?  |
+| **JOIN** [grupo]                | juntar (criar) grupo                                                                      | JOIN Tempestade-Kirk                                                             |
+| **LEAVE** [grupo]               | sair grupo                                                                                | LEAVE Tempestade-Kirk                                                            |
+| **GROUPMSG** [grupo] [messagem] | enviar mensagens em grupos                                                                | GROUPMSG Tempestade-Kirk Bom Dia.                                                |
+| **APPROVE** EVACUATE            | aprovar (somente users com a role HIGH, excluindo quem pediu EVACUATE)                    |                                                                                  |
+| **APPROVE** ACTIVATE            | aprovar (somente users com a role HIGH ou MEDIUM, excluindo quem pediu ACTIVATE)          |                                                                                  |
+| **APPROVE** DISTRIBUTE          | aprovar (somente users com a role HIGH ou MEDIUM ou LOW, excluindo quem pediu DISTRIBUTE) |                                                                                  |
+
    
 # Login
 
@@ -13,9 +25,9 @@
 
 
 # Grupos default que cada role pertence
-| role    | grupo        |
-|---------|--------------|
+| role    | grupo                                                           |
+|---------|-----------------------------------------------------------------|
 | HIGH    | GRUPO-HIGH, GRUPO-MEDIUM, GRUPO-LOW, GRUPO-REGULAR, GRUPO-GERAL |
-| MEDIUM  | GRUPO-MEDIUM, GRUPO-LOW, GRUPO-REGULAR, GRUPO-GERAL |
-| LOW     | GRUPO-LOW, GRUPO-REGULAR, GRUPO-GERAL |
-| REGULAR | GRUPO-REGULAR, GRUPO-GERAL |
+| MEDIUM  | GRUPO-MEDIUM, GRUPO-LOW, GRUPO-REGULAR, GRUPO-GERAL             |
+| LOW     | GRUPO-LOW, GRUPO-REGULAR, GRUPO-GERAL                           |
+| REGULAR | GRUPO-REGULAR, GRUPO-GERAL                                      |

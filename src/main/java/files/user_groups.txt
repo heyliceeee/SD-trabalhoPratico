@@ -12,3 +12,5 @@ operador1@protecao.gov.pt,GRUPO-LOW
 operador1@protecao.gov.pt,GRUPO-REGULAR
 agente_emergencia2@protecao.gov.pt,GRUPO-GERAL
 agente_emergencia2@protecao.gov.pt,GRUPO-REGULAR
+
+coord_regional@protecao.gov.pt,GRUPO-A

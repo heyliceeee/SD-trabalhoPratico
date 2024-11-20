@@ -25,7 +25,6 @@ public class GroupService {
     private MessageService messageService;
 
 
-
     public GroupService(MessageService messageService) {
         // Inicializa grupos default
         createGroup("GRUPO-GERAL");
@@ -47,7 +46,7 @@ public class GroupService {
         groups.getOrDefault(groupName, new ArrayList<>()).add(clientHandler);
 
         // Guardar grupos do utilizador após adicioná-lo
-        saveUserGroups(clientHandler.getEmail());
+        saveUserGroups(clientHandler.getEmail(), groupName);
     }
 
     // Remove um cliente do grupo
@@ -114,7 +113,35 @@ public class GroupService {
         } else {
             joinGroup("GRUPO-REGULAR", clientHandler);
         }
+
+        // Carregar grupos adicionais do ficheiro e adicioná-los ao utilizador
+        List<String> additionalGroups = loadAdditionalGroupsFromFile(clientHandler.getEmail());
+
+        for (String group : additionalGroups) {
+            joinGroup(group, clientHandler);
+        }
     }
+
+    private List<String> loadAdditionalGroupsFromFile(String email) {
+        List<String> userGroups = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",", 2); // Separar o email do grupo
+                if (parts.length == 2 && parts[0].trim().equals(email)) {
+                    if(!parts[1].equals("GRUPO-GERAL") && !parts[1].equals("GRUPO-HIGH") && !parts[1].equals("GRUPO-MEDIUM") && !parts[1].equals("GRUPO-LOW") && !parts[1].equals("GRUPO-REGULAR")){ //nao sao grupos default
+
+                        createGroup(parts[1]); //adiciona parts[1] ao group, caso se verificar que o grupo nao esta criado (na lista group)
+                        userGroups.add(parts[1].trim()); //adicionar o grupo à lista
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar grupos adicionais do ficheiro: " + e.getMessage());
+        }
+        return userGroups;
+    }
+
 
     // membros online do grupo
     public List<ClientHandler> getOnlineMembersOfGroup(String groupName) {
@@ -294,33 +321,29 @@ public class GroupService {
     }
 
     // Método para guardar grupos de um utilizador em um ficheiro
-    public void saveUserGroups(String email) {
-        // Obter a lista de grupos do utilizadores
-        List<String> userGroups = getGroupsForUser(email);
-
-        // Carregar grupos existentes do ficheiro para verificar duplicacoes
+    public void saveUserGroups(String email, String groupName) {
+        // Carregar grupos existentes do ficheiro para verificar duplicações
         Set<String> existingEntries = new HashSet<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
-                existingEntries.add(line);
+                existingEntries.add(line.trim());
             }
         } catch (IOException e) {
             System.err.println("Erro ao carregar grupos existentes: " + e.getMessage());
         }
 
-        // Adicionar apenas grupos que ainda não estão no ficheiro
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE, true))) {
-            for (String groupName : userGroups) {
-                String entry = email + "," + groupName.trim(); // Use trim() para remover espaços em branco
-                if (!existingEntries.contains(entry)) {
-                    bw.write(entry);
-                    bw.newLine();
-                }
+        // Formatar a entrada do utilizador e grupo
+        String entry = email + "," + groupName.trim();
+
+        // Verificar se já existe no ficheiro antes de adicionar
+        if (!existingEntries.contains(entry)) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(GROUPS_FILE, true))) {
+                bw.write(entry);
+                bw.newLine(); // Adiciona nova linha após cada entrada
+            } catch (IOException e) {
+                System.err.println("Erro ao guardar grupos de utilizadores: " + e.getMessage());
             }
-        } catch (IOException e) {
-            System.err.println("Erro ao guardar grupos de utilizadores: " + e.getMessage());
         }
     }
 
@@ -342,13 +365,26 @@ public class GroupService {
     public void loadUserGroups() {
         try (BufferedReader br = new BufferedReader(new FileReader(GROUPS_FILE))) {
             String line;
+
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = line.split(",", 2);
                 if (parts.length == 2) {
-                    String email = parts[0];
-                    String groupName = parts[1];
-                    // Adicione o utilizador ao grupo
-                    joinGroup(groupName, messageService.getClientHandlerByEmail(email));
+                    String email = parts[0].trim();
+                    String groupName = parts[1].trim();
+
+                    // Certifique-se de que o grupo existe
+                    createGroup(groupName);
+
+                    // Adicionar o utilizador ao grupo
+                    ClientHandler clientHandler = messageService.getClientHandlerByEmail(email);
+
+                    if (clientHandler != null) {
+                        // Se o utilizador está online, adiciona diretamente
+                        joinGroup(groupName, clientHandler);
+                    } else {
+                        // Se o utilizador está offline, adiciona como stub
+                        groups.get(groupName).add(new ClientHandlerStub(email));
+                    }
                 }
             }
         } catch (IOException e) {

@@ -1,136 +1,35 @@
-[2024-11-10 16:21:36] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 16:21:36] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 16:26:11] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 16:26:11] ACTIVE_USERS: operador1@protecao.gov.pt
-[2024-11-10 16:58:35] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 16:58:35] ACTIVE_USERS: operador1@protecao.gov.pt
-[2024-11-10 17:03:49] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 17:03:49] ACTIVE_USERS: operador1@protecao.gov.pt
-[2024-11-10 17:05:03] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 17:05:03] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 17:06:49] ACTIVE_USERS: operador1@protecao.gov.pt
-[2024-11-10 17:13:06] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 17:13:06] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 17:13:24] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 17:13:24] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 17:14:06] ACTIVE_USERS: operador1@protecao.gov.pt
-[2024-11-10 17:14:51] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 17:14:51] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 17:15:22] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 17:15:22] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 17:16:45] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 17:16:45] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 17:16:54] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 17:16:54] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 17:30:01] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 17:30:01] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 17:30:26] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 17:30:26] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 17:39:51] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 17:39:51] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 17:40:01] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 17:40:01] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:21:19] AUTHENTICATION: Tentativa de login falhou para o email: coord_regional@protecao.gov.pt
-[2024-11-10 18:21:19] ACTIVE_USERS: 
-[2024-11-10 18:21:33] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 18:21:33] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 18:21:48] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 18:21:48] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:27:20] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 18:27:20] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 18:27:37] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 18:27:37] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:27:58] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-10 18:27:58] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:28:18] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
-[2024-11-10 18:28:18] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:28:27] ACTIVE_USERS: coord_local1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:28:30] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:33:05] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:34:31] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-10 18:34:31] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-10 18:34:44] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-10 18:34:44] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:34:54] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
-[2024-11-10 18:34:54] ACTIVE_USERS: operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:35:05] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-10 18:35:05] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:35:08] ACTIVE_USERS: operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:35:10] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:38:19] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-10 18:38:19] ACTIVE_USERS: operador1@protecao.gov.pt
-[2024-11-10 18:51:30] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-10 18:54:36] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-10 18:56:06] ACTIVE_USERS: coord_local1@protecao.gov.pt
-[2024-11-20 09:11:48] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 09:11:48] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 09:11:55] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 09:11:55] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 09:20:23] ACTIVE_USERS: coord_local1@protecao.gov.pt
-[2024-11-20 09:21:15] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 09:21:15] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 09:22:27] ACTIVE_USERS: coord_local1@protecao.gov.pt
-[2024-11-20 09:31:46] ACTIVE_USERS: 
-[2024-11-20 09:32:03] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 09:32:03] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 09:40:46] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 09:40:46] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 09:45:36] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 09:45:36] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:13:55] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 10:13:55] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:22:48] AUTHENTICATION: Tentativa de login falhou para o email: coord_regional@protecao.gov.pt
-[2024-11-20 10:22:48] ACTIVE_USERS: 
-[2024-11-20 10:22:59] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 10:22:59] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:23:10] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:23:10] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:23:18] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-20 10:23:18] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:23:27] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
-[2024-11-20 10:23:27] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:23:30] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:23:32] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:23:33] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:25:36] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-20 10:25:36] ACTIVE_USERS: operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:28:08] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 10:28:08] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:28:13] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:28:13] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:28:40] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-20 10:28:40] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:28:57] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
-[2024-11-20 10:28:57] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:39:50] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 10:39:50] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:39:59] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:39:59] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:40:10] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-20 10:40:10] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:40:16] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
-[2024-11-20 10:40:16] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:41:33] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:41:34] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:41:36] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:43:16] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:43:16] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:43:26] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:43:35] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:43:35] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:52:40] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
-[2024-11-20 10:52:40] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:52:47] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:52:47] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:52:55] AUTHENTICATION: Tentativa de login bem-sucedida para o email: operador1@protecao.gov.pt
-[2024-11-20 10:52:55] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:53:04] AUTHENTICATION: Tentativa de login bem-sucedida para o email: agente_emergencia2@protecao.gov.pt
-[2024-11-20 10:53:04] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, agente_emergencia2@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:53:34] ACTIVE_USERS: coord_local1@protecao.gov.pt, operador1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:53:36] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:53:38] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:54:18] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:54:18] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
-[2024-11-20 10:54:30] ACTIVE_USERS: coord_regional@protecao.gov.pt
-[2024-11-20 10:54:38] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_local1@protecao.gov.pt
-[2024-11-20 10:54:38] ACTIVE_USERS: coord_local1@protecao.gov.pt, coord_regional@protecao.gov.pt
+[2024-11-20 17:04:20] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:04:20] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:06:30] ACTIVE_USERS: 
+[2024-11-20 17:06:41] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:06:41] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:07:10] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:07:10] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:08:15] ACTIVE_USERS: 
+[2024-11-20 17:08:58] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:08:58] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:11:35] ACTIVE_USERS: 
+[2024-11-20 17:11:53] ACTIVE_USERS: 
+[2024-11-20 17:12:04] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:12:04] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:13:52] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:13:52] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:19:43] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:19:43] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:21:38] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:21:38] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:26:02] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:26:02] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:34:53] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:34:53] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:36:39] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:36:39] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:36:53] ACTIVE_USERS: 
+[2024-11-20 17:37:08] ACTIVE_USERS: 
+[2024-11-20 17:37:17] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:37:17] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:38:38] ACTIVE_USERS: 
+[2024-11-20 17:38:51] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:38:51] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-11-20 17:39:12] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
+[2024-11-20 17:39:12] ACTIVE_USERS: coord_regional@protecao.gov.pt

@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
+
+import static java.lang.System.out;
 
 
 /**
@@ -79,17 +82,28 @@ public class ClientHandler extends Thread {
 
         if (success) {
             userRole = Role.valueOf(userManager.getUserRole(email).toUpperCase());
-            messageService.registerOnlineClient(email, this); // Registra o cliente como online e entrega mensagens pendentes
-            messageService.registerClient(this); // Registra o cliente no sistema
+            messageService.registerOnlineClient(email, this); // Regista o cliente como online e entrega mensagens pendentes
+            messageService.registerClient(this); // Regista o cliente no sistema
 
-            // Adiciona o utilizador aos grupos padrão com base no seu role
+            // Adiciona o utilizador aos grupos padrão (GERAL, HIGH, MEDIUM, LOW, REGULAR) com base no seu role
             groupService.addUserToDefaultGroups(this, userRole);
 
-            out.println("Autenticação bem-sucedida. Pertence aos grupos: geral, " + userRole + " e roles inferiores.");
+            // Carregar grupos adicionais do ficheiro
+            //List<String> userGroups = groupService.getGroupsForUser(email);
+
+            //for (String group : userGroups) {
+                //groupService.joinGroup(group, this);
+            //}
+
+            // Formatar a lista de grupos para exibição
+            String formattedGroups = String.join(", ", groupService.getGroupsForUser(email));
+            out.println("\n\nAutenticação bem-sucedida. Pertence aos grupos: " + formattedGroups);
+
             return true;
         }
         return false;
     }
+
 
     // Processa os comandos enviados pelo cliente
     private void processCommand(String command) {

@@ -1,0 +1,16 @@
+coord_regional@protecao.gov.pt,GRUPO-GERAL
+coord_regional@protecao.gov.pt,GRUPO-HIGH
+coord_regional@protecao.gov.pt,GRUPO-MEDIUM
+coord_regional@protecao.gov.pt,GRUPO-LOW
+coord_regional@protecao.gov.pt,GRUPO-REGULAR
+coord_local1@protecao.gov.pt,GRUPO-GERAL
+coord_local1@protecao.gov.pt,GRUPO-MEDIUM
+coord_local1@protecao.gov.pt,GRUPO-LOW
+coord_local1@protecao.gov.pt,GRUPO-REGULAR
+operador1@protecao.gov.pt,GRUPO-GERAL
+operador1@protecao.gov.pt,GRUPO-LOW
+operador1@protecao.gov.pt,GRUPO-REGULAR
+agente_emergencia2@protecao.gov.pt,GRUPO-GERAL
+agente_emergencia2@protecao.gov.pt,GRUPO-REGULAR
+
+coord_regional@protecao.gov.pt,GRUPO-A

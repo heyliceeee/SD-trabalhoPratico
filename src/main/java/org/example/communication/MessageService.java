@@ -6,6 +6,7 @@ import org.example.logging.Logger;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static org.example.communication.GroupService.GROUPMESSAGES_FILE;
@@ -63,7 +64,8 @@ public class MessageService {
             ClientHandler client = onlineClients.get(user);
             if (client != null) {
                 while (!messages.isEmpty()) {
-                    client.sendMessage(messages.poll()); // Envia todas as mensagens pendentes
+                    //client.sendMessage("ENQUANTO TEVE OFFLINE: "+ messages.poll()); // Envia todas as mensagens pendentes
+                    messages.poll(); //remove da lista
                 }
             }
         }
@@ -73,20 +75,41 @@ public class MessageService {
     }
 
     private void loadIndividualMessages(String user) {
-        try (BufferedReader br = new BufferedReader(new FileReader(INDIVIDUALMESSAGES_FILE))) {
+        File tempFile = new File(INDIVIDUALMESSAGES_FILE + ".tmp");
+        File originalFile = new File(INDIVIDUALMESSAGES_FILE);
+
+        try (BufferedReader br = new BufferedReader(new FileReader(originalFile));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",", 3); // Email, mensagem, timestamp
                 if (parts.length == 3 && parts[0].equals(user)) {
-                    // Entregar mensagem ao utulizador
+                    // Entregar mensagem ao utilizador
                     ClientHandler client = onlineClients.get(user);
+
                     if (client != null) {
-                        client.sendMessage("Mensagem recebida: " + parts[1] + " [" + parts[2] + "]");
+                        //converter timestamp
+                        String formattedDate = convertTimestamp(parts[2]);
+
+                        client.sendMessage("ENQUANTO TEVE OFFLINE: " + parts[1] + " [" + formattedDate + "]");
                     }
+                    // Não escreve a mensagem no novo ficheiro (removendo-a do ficheiro original)
+                } else {
+                    // Mensagem não pertence ao utilizador ou é inválida, mantém no ficheiro
+                    bw.write(line);
+                    bw.newLine();
                 }
             }
         } catch (IOException e) {
             System.err.println("Erro ao carregar mensagens individuais: " + e.getMessage());
+        }
+
+        // Substitui o ficheiro original pelo ficheiro temporário
+        if (!originalFile.delete()) {
+            System.err.println("Erro ao remover o ficheiro original.");
+        }
+        if (!tempFile.renameTo(originalFile)) {
+            System.err.println("Erro ao renomear o ficheiro temporário.");
         }
     }
 
@@ -120,21 +143,53 @@ public class MessageService {
     }
 
     private void loadGroupMessages(String userEmail) {
-        try (BufferedReader br = new BufferedReader(new FileReader(GROUPMESSAGES_FILE))) {
+        File tempFile = new File(GROUPMESSAGES_FILE + ".tmp");
+        File originalFile = new File(GROUPMESSAGES_FILE);
+
+        try (BufferedReader br = new BufferedReader(new FileReader(originalFile));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",", 5); // email destinatario, grupo, email remetente, mensagem, timestamp
-                if (parts.length == 5 && !parts[2].equals(userEmail) && parts[0].equals(userEmail)) { // Verifique se não é a mensagem do próprio utilizador e se é para o utilizador
+                String[] parts = line.split(",", 5); // email destinatário, grupo, email remetente, mensagem, timestamp
+                if (parts.length == 5 && !parts[2].equals(userEmail) && parts[0].equals(userEmail)) {
                     // Entregar mensagem ao utilizador
                     ClientHandler client = onlineClients.get(userEmail);
                     if (client != null) {
-                        client.sendMessage("Mensagem de grupo [" + parts[1] + "] de " + parts[2] + ": " + parts[3] + " [" + parts[4] + "]");
+                        //converter timestamp
+                        String formattedDate = convertTimestamp(parts[4]);
+
+                        client.sendMessage("ENQUANTO TEVE OFFLINE: [" + parts[1] + "] " + parts[3] + " [" + formattedDate + "]");
                     }
+                    // Não escreve a mensagem no novo ficheiro (removendo-a do ficheiro original)
+                } else {
+                    // Mensagem não pertence ao utilizador ou é inválida, mantém no ficheiro
+                    bw.write(line);
+                    bw.newLine();
                 }
             }
         } catch (IOException e) {
             System.err.println("Erro ao carregar mensagens de grupo: " + e.getMessage());
         }
+
+        // Substitui o ficheiro original pelo ficheiro temporário
+        if (!originalFile.delete()) {
+            System.err.println("Erro ao remover o ficheiro original.");
+        }
+        if (!tempFile.renameTo(originalFile)) {
+            System.err.println("Erro ao renomear o ficheiro temporário.");
+        }
+    }
+
+    //converter data para o formato desejado
+    private String convertTimestamp(String originalDateTime) {
+
+        // Converter o texto para LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.parse(originalDateTime);
+
+        // Criar um formatador com o formato desejado
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, dd/MM/yyyy");
+
+        return dateTime.format(formatter);
     }
 
     //guardar as mensagens de grupo para os utilizadores offline

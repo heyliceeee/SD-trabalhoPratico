@@ -23,7 +23,7 @@ import java.util.List;
 public class ReportScheduler extends Thread {
     private final long interval;
     private final MessageService messageService;
-    private static final String REPORT_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\system_reports.log";
+    private static final String REPORT_FILE = "C:\\Users\\andre\\OneDrive\\Ambiente de Trabalho\\es2\\SD-trabalhoPratico\\src\\main\\java\\files\\system_reports.log";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public ReportScheduler(long interval, MessageService messageService) {

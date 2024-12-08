@@ -19,8 +19,8 @@ import static java.lang.System.out;
 public class GroupService {
     private Map<String, List<ClientHandler>> groups = new HashMap<>(); // Mapa de grupos e membros
     private Queue<ApprovalRequest> pendingApprovals = new LinkedList<>(); //pedidos de aprovacao de mensagens
-    public static final String GROUPS_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\user_groups.txt";
-    public static final String GROUPMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\group_messages.txt";
+    public static final String GROUPS_FILE = "C:\\Users\\andre\\OneDrive\\Ambiente de Trabalho\\es2\\SD-trabalhoPratico\\src\\main\\java\\files\\user_groups.txt";
+    public static final String GROUPMESSAGES_FILE = "C:\\Users\\andre\\OneDrive\\Ambiente de Trabalho\\es2\\SD-trabalhoPratico\\src\\main\\java\\files\\group_messages.txt";
 
     private MessageService messageService;
 

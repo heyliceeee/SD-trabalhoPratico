@@ -22,7 +22,7 @@ import static org.example.communication.GroupService.GROUPMESSAGES_FILE;
 public class MessageService {
     private Map<String, Queue<String>> offlineMessages = new HashMap<>(); // Armazena mensagens para utilizadores offline
     private Map<String, ClientHandler> onlineClients = new HashMap<>(); // Armazena os clientes online
-    public static final String INDIVIDUALMESSAGES_FILE = "D:\\githubProjects\\SD-trabalhoPratico\\src\\main\\java\\files\\individual_messages.txt";
+    public static final String INDIVIDUALMESSAGES_FILE = "C:\\Users\\andre\\OneDrive\\Ambiente de Trabalho\\es2\\SD-trabalhoPratico\\src\\main\\java\\files\\individual_messages.txt";
 
     // Este mapa mantém todos os clientes, online ou offline
     private Map<String, ClientHandler> allClients = new HashMap<>();

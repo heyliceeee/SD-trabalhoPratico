@@ -10,12 +10,11 @@ repositories {
 }
 
 dependencies {
-    def javafxVersion = '23'
+    def javafxVersion = '17'
     implementation "org.openjfx:javafx-base:${javafxVersion}"
     implementation "org.openjfx:javafx-controls:${javafxVersion}"
     implementation "org.openjfx:javafx-fxml:${javafxVersion}"
     implementation "org.openjfx:javafx-graphics:${javafxVersion}"
-
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

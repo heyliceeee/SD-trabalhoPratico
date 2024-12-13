@@ -33,3 +33,36 @@
 [2024-11-20 17:38:51] ACTIVE_USERS: coord_regional@protecao.gov.pt
 [2024-11-20 17:39:12] AUTHENTICATION: Tentativa de login bem-sucedida para o email: coord_regional@protecao.gov.pt
 [2024-11-20 17:39:12] ACTIVE_USERS: coord_regional@protecao.gov.pt
+[2024-12-13 19:17:35] ACTIVE_USERS: 
+[2024-12-13 19:42:24] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 19:42:24] ACTIVE_USERS: alice@example.com
+[2024-12-13 19:42:24] ACTIVE_USERS: alice@example.com
+[2024-12-13 19:45:09] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 19:45:18] ACTIVE_USERS: alice@example.com
+[2024-12-13 19:47:25] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 19:47:25] ACTIVE_USERS: alice@example.com
+[2024-12-13 19:53:19] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 19:53:22] ACTIVE_USERS: alice@example.com
+[2024-12-13 19:54:10] ACTIVE_USERS: alice@example.com
+[2024-12-13 19:55:15] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 19:55:15] ACTIVE_USERS: alice@example.com
+[2024-12-13 19:57:26] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:18:42] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 20:18:42] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:18:42] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:25:35] ACTIVE_USERS: 
+[2024-12-13 20:26:38] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 20:26:38] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:27:38] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:29:17] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 20:29:17] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:46:22] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 20:47:18] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:50:31] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 20:53:02] AUTHENTICATION: Tentativa de login bem-sucedida para o email: alice@example.com
+[2024-12-13 20:53:20] ACTIVE_USERS: alice@example.com
+[2024-12-13 20:56:53] AUTHENTICATION: Tentativa de login bem-sucedida para o email: marlene@example
+[2024-12-13 20:56:53] ACTIVE_USERS: marlene@example
+[2024-12-13 20:57:26] ACTIVE_USERS: 
+[2024-12-13 20:57:48] AUTHENTICATION: Tentativa de login bem-sucedida para o email: marlene@example
+[2024-12-13 20:57:48] ACTIVE_USERS: marlene@example

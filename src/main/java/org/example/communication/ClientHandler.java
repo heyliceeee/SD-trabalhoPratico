@@ -51,11 +51,7 @@ public class ClientHandler extends Thread {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            // Autenticação do Utilizador
-            if (!authenticateUser()) {
-                out.println("Autenticação falhou. Conexão encerrada.");
-                return; // Encerrar conexão se a autenticação falhar
-            }
+            sendMessage("Introduza um comando: REGISTER, LOGIN, SEND, JOIN, LEAVE, GROUPMSG, EVACUATE, ACTIVATE, DISTRIBUTE, APPROVE");
 
             String input;
             while ((input = in.readLine()) != null) {
@@ -70,48 +66,76 @@ public class ClientHandler extends Thread {
         }
     }
 
-    // Método para autenticar o utilizador
-    private boolean authenticateUser() throws IOException {
-        out.println("Introduza o seu email:");
-        email = in.readLine();
-        out.println("Introduza a sua palavra-passe:");
-        String password = in.readLine();
-
-        boolean success = userManager.authenticateUser(email, password);
-        Logger.logAuthentication(email, success);
-
-        if (success) {
-            userRole = Role.valueOf(userManager.getUserRole(email).toUpperCase());
-            messageService.registerOnlineClient(email, this); // Regista o cliente como online e entrega mensagens pendentes
-            messageService.registerClient(this); // Regista o cliente no sistema
-
-            // Adiciona o utilizador aos grupos padrão (GERAL, HIGH, MEDIUM, LOW, REGULAR) com base no seu role
-            groupService.addUserToDefaultGroups(this, userRole);
-
-            // Formatar a lista de grupos para exibição
-            String formattedGroups = String.join(", ", groupService.getGroupsForUser(email));
-            out.println("\n\nAutenticação bem-sucedida. Pertence aos grupos: " + formattedGroups);
-
-            return true;
-        }
-        return false;
-    }
-
 
     // Processa os comandos enviados pelo cliente
     private void processCommand(String command) {
-        String[] parts = command.split(" ", 3);
+        String[] parts = command.split(" ", 4);
         String action = parts[0];
 
         switch (action) {
+            case "REGISTER":
+                if (parts.length < 4) {
+                    sendMessage("Uso: REGISTER [email] [password] [role]");
+                } else {
+                    String email = parts[1];
+                    String password = parts[2];
+                    String role = parts[3];
+                    if (userManager.registerUser(email, password, role.toUpperCase())) {
+                        sendMessage("Conta criada com sucesso para: " + email);
+                    } else {
+                        sendMessage("Erro: O email já está registado.");
+                    }
+                }
+                break;
+            case "LOGIN":
+                if (parts.length < 3) {
+                    sendMessage("Uso: LOGIN [email] [password]");
+                } else {
+                    String email = parts[1];
+                    String password = parts[2];
+                    if (userManager.authenticateUser(email, password)) {
+                        Logger.logAuthentication(email, true);
+
+                        this.email = email;
+
+                        userRole = Role.valueOf(userManager.getUserRole(email).toUpperCase());
+
+                        messageService.registerOnlineClient(email, this); // Regista o cliente como online e entrega mensagens pendentes
+                        messageService.registerClient(this); // Regista o cliente no sistema
+
+                        // Adiciona o utilizador aos grupos padrão (GERAL, HIGH, MEDIUM, LOW, REGULAR) com base no seu role
+                        groupService.addUserToDefaultGroups(messageService.getClientHandlerByEmail(email), userRole);
+
+                        // Formatar a lista de grupos para exibição
+                        String formattedGroups = String.join(", ", groupService.getGroupsForUser(email));
+
+
+                        sendMessage("Autenticação bem-sucedida. Pertence aos grupos: " + formattedGroups);
+                    } else {
+                        sendMessage("Erro: O email já está registado.");
+                    }
+                }
+                break;
             case "SEND":
-                sendMessage(parts[1], parts[2]);
+                if (parts.length < 3) {
+                    sendMessage("Uso: SEND [email] [mensagem]");
+                } else {
+                    sendMessage(parts[1], parts[2]);
+                }
                 break;
             case "JOIN":
-                joinGroup(parts[1]);
+                if (parts.length < 2) {
+                    sendMessage("Uso: JOIN [grupo]");
+                } else {
+                    joinGroup(parts[1]);
+                }
                 break;
             case "LEAVE":
-                leaveGroup(parts[1]);
+                if (parts.length < 2) {
+                    sendMessage("Uso: LEAVE [grupo]");
+                } else {
+                    leaveGroup(parts[1]);
+                }
                 break;
             case "GROUPMSG":
                 if (parts.length < 3) {

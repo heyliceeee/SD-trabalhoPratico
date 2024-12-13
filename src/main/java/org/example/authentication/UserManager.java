@@ -2,6 +2,7 @@ package org.example.authentication;
 
 
 import org.example.communication.ClientHandler;
+import org.example.communication.GroupService;
 
 import java.io.*;
 import java.util.HashMap;
@@ -30,18 +31,32 @@ public class UserManager {
     // Regista um novo utilizador no sistema
     public boolean registerUser(String email, String password, String role) {
         if (!users.containsKey(email)) {
-            User newUser = new User(email, password, role);
+            String encryptedPassword = EncryptionUtil.encryptPassword(password); // Encriptar a senha
+
+            User newUser = new User(email, encryptedPassword, role);
             users.put(email, newUser);
-            saveUsers();
+            saveUsers(); // Persistir o novo utilizador no ficheiro
+
             return true;
         }
-        return false; // Email já está registado
+        return false; // O email já está registado
     }
 
     // Autentica um utilizador verificando email e password
     public boolean authenticateUser(String email, String password) {
         User user = users.get(email);
-        return user != null && user.getPassword().equals(password);
+        if (user != null) {
+            try {
+                String storedEncryptedPassword = user.getPassword(); // Obter a senha armazenada encriptada
+                String decryptedPassword = DecryptionUtil.decryptPassword(storedEncryptedPassword); // Desencriptar a senha armazenada
+
+                return password.equals(decryptedPassword); // Comparar a senha fornecida com a desencriptada
+            } catch (Exception e) {
+                System.err.println("Erro ao verificar senha: " + e.getMessage());
+                return false;
+            }
+        }
+        return false; // Utilizador não encontrado
     }
 
     // Obtém o perfil do utilizador (para autorização e permissões)

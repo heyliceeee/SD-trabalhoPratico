@@ -1,10 +1,12 @@
-coord_regional@protecao.gov.pt,senha123,HIGH
+marlene@example,U9dKwQoWJJiBy/UejsrdjmHoD051bw1YWUdsAAX+1SwBCXYAnEnaQyVG1WMjfaRQv9Eulfat/vRdp8HJSUbZrjuBE3EPF+YEQnopS9X7ZdhuAKaCzaYkbZXK+d4PXnIOUKtvkwz+5xYuEgsBgEYwVvCHQw4ZgiBH+Rh0Ewhx3ZAYdFkxDpfCbFUEi1En1E+1muRU+k4OX/D/1qY7RZL95qOQfW7oxec5/4TGSVsiaGXgZYx7kvW4n3jaNy/Xv5JuUan/7q3EpwRjDzcdi+sllaaSTvoSMqO4C32EIJLhSMslWY5zblVVgtGrTtZHKhRmoULLYpBm0fBJAaZztPYrtQ==,REGULAR
+voluntario1@protecao.gov.pt,senha333,REGULAR
 coord_local1@protecao.gov.pt,senha456,MEDIUM
+operador2@protecao.gov.pt,senha654,LOW
 coord_local2@protecao.gov.pt,senha789,MEDIUM
 operador1@protecao.gov.pt,senha321,LOW
-operador2@protecao.gov.pt,senha654,LOW
-agente_emergencia1@protecao.gov.pt,senha111,REGULAR
+alice@example.com,MKJW0qi9eo9cPFmaqgwBl1KietvRfcUbRFYJ7t8hTklx0luanbbBq9BZavp02s2OOqYTkZHrJe6CszDz41HlA3jrTgYw3PgR8k5iIpK8Rh/KcWNePn4ciec4WL9AcRuzKXq+72B3giDANh7fh0YMqkeQrw6WrCkT5LNKS4fIshkID2wddJZZfvg1p6jonL7L5MFtBVTKai7qz/Uas2wxzZU98WyIAECM3ZGRrOi1aeqS9fCfkRnHbtyoXinKtEclYyZow8kHK2vXWlJYx+eHPzlqP5APTBuFhLFUnM/mHkRcIU5cHO5gaz6VsfP87QV0fYNU77W1jMOS1RmTQEF6iA==,HIGH
 agente_emergencia2@protecao.gov.pt,senha222,REGULAR
-voluntario1@protecao.gov.pt,senha333,REGULAR
-voluntario2@protecao.gov.pt,senha444,REGULAR
+coord_regional@protecao.gov.pt,senha123,HIGH
 coordenador_logistica@protecao.gov.pt,senha999,HIGH
+agente_emergencia1@protecao.gov.pt,senha111,REGULAR
+voluntario2@protecao.gov.pt,senha444,REGULAR

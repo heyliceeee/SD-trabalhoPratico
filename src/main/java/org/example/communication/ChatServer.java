@@ -17,7 +17,7 @@ public class ChatServer {
     private UserManager userManager;
 
     public ChatServer(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port); // Estabelece conexão TCP com o servidor
         userManager = new UserManager();
         messageService = new MessageService(userManager);
         groupService = new GroupService(messageService);
@@ -31,7 +31,7 @@ public class ChatServer {
         while (true) {
             try {
                 // Aceitar a conexão do cliente
-                Socket clientSocket = serverSocket.accept();
+                Socket clientSocket = serverSocket.accept();  // Aceita conexões TCP
 
                 // Criar um ClientHandler para cada novo cliente e iniciar uma nova thread
                 ClientHandler clientHandler = new ClientHandler(clientSocket, userManager, messageService, groupService);

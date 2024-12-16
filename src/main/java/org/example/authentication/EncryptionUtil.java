@@ -9,43 +9,41 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 public class EncryptionUtil {
-    public static String encryptPassword(String password) {
 
+    // Caminhos para as chaves
+    private static final String PUBLIC_KEY_FILE = "public.key";
+    private static final String PRIVATE_KEY_FILE = "private.key";
+
+    // Gera as chaves RSA e guarda nos ficheiros
+    public static void generateKeys() {
         try {
-            // Gerar par de chaves
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(2048);
             KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
-            // Obter chave pública e privada
-            PublicKey publicKey = keyPair.getPublic();
-            PrivateKey privateKey = keyPair.getPrivate();
+            // Salvar a chave pública e privada
+            saveKeyToFile(PUBLIC_KEY_FILE, keyPair.getPublic().getEncoded());
+            saveKeyToFile(PRIVATE_KEY_FILE, keyPair.getPrivate().getEncoded());
 
-            // Salvar as chaves em arquivos
-            saveKeyToFile("public.key", publicKey.getEncoded());
-            saveKeyToFile("private.key", privateKey.getEncoded());
-
-            System.out.println("Chaves geradas e salvas com sucesso!");
+            System.out.println("Chaves RSA geradas e guardadas com sucesso!");
         } catch (NoSuchAlgorithmException | IOException e) {
             System.err.println("Erro ao gerar as chaves: " + e.getMessage());
         }
+    }
 
+
+    // Criptografa a senha com a chave pública
+    public static String encryptPassword(String password) {
         try {
             // Carregar a chave pública
-            FileInputStream fis = new FileInputStream("public.key");
-            byte[] keyBytes = fis.readAllBytes();
-            fis.close();
+            PublicKey publicKey = loadPublicKey();
 
-            X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            PublicKey publicKey = keyFactory.generatePublic(spec);
-
-            // Encriptar a senha
-            Cipher cipher = Cipher.getInstance("RSA");
+            // Configurar o Cipher para criptografia
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             byte[] encryptedBytes = cipher.doFinal(password.getBytes());
 
-            // Converter para Base64 para armazenar
+            // Retornar a senha criptografada como Base64
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,9 +51,21 @@ public class EncryptionUtil {
         }
     }
 
+    // Salva a chave em um arquivo
     private static void saveKeyToFile(String fileName, byte[] keyBytes) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(fileName)) {
             fos.write(keyBytes);
         }
+    }
+
+    // Carrega a chave pública do arquivo
+    private static PublicKey loadPublicKey() throws Exception {
+        FileInputStream fis = new FileInputStream(PUBLIC_KEY_FILE);
+        byte[] keyBytes = fis.readAllBytes();
+        fis.close();
+
+        X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        return keyFactory.generatePublic(spec);
     }
 }

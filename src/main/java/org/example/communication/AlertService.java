@@ -14,7 +14,7 @@ public class AlertService {
     private static final String ALERT_GROUP = "224.0.0.1";
 
     public AlertService() throws IOException {
-        socket = new MulticastSocket();
+        socket = new MulticastSocket(); // Criação do socket UDP
     }
 
     public void sendAlert(String message) throws IOException {

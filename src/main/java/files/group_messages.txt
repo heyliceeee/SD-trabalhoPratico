@@ -1,2 +1,0 @@
-operador1@protecao.gov.pt,GRUPO-GERAL,coord_regional@protecao.gov.pt,coord_regional@protecao.gov.pt: Olá a todos do grupo geral!,2024-11-20T10:53:46.187499100
-agente_emergencia2@protecao.gov.pt,GRUPO-GERAL,coord_regional@protecao.gov.pt,coord_regional@protecao.gov.pt: Olá a todos do grupo geral!,2024-11-20T10:53:46.187499100

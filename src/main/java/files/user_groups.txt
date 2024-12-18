@@ -12,3 +12,13 @@ operador1@protecao.gov.pt,GRUPO-LOW
 operador1@protecao.gov.pt,GRUPO-REGULAR
 agente_emergencia2@protecao.gov.pt,GRUPO-GERAL
 agente_emergencia2@protecao.gov.pt,GRUPO-REGULAR
+8200118@example.com,GRUPO-GERAL
+8200118@example.com,GRUPO-HIGH
+8200118@example.com,GRUPO-MEDIUM
+8200118@example.com,GRUPO-LOW
+8200118@example.com,GRUPO-REGULAR
+alice@protecao.gov.pt,GRUPO-GERAL
+alice@protecao.gov.pt,GRUPO-HIGH
+alice@protecao.gov.pt,GRUPO-MEDIUM
+alice@protecao.gov.pt,GRUPO-LOW
+alice@protecao.gov.pt,GRUPO-REGULAR
